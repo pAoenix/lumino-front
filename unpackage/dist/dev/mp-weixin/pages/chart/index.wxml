@@ -1,0 +1,1 @@
+<view class="{{[virtualHostClass]}}" style="{{virtualHostStyle}}" hidden="{{virtualHostHidden}}" id="{{virtualHostId}}"> 图表 <svg-icon wx:if="{{a}}" u-i="6cea702a-0" bind:__l="__l" u-p="{{a}}"/><custom-tabbar wx:if="{{b}}" u-i="6cea702a-1" bind:__l="__l" u-p="{{b}}"></custom-tabbar></view>

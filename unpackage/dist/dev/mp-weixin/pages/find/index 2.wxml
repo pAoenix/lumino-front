@@ -1,0 +1,1 @@
+<view class="{{[virtualHostClass]}}" style="{{virtualHostStyle}}" hidden="{{virtualHostHidden}}" id="{{virtualHostId}}"> 发现 <custom-tabbar wx:if="{{a}}" u-i="038f263c-0" bind:__l="__l" u-p="{{a}}"/></view>

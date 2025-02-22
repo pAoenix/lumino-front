@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "custom-tabbar": "../component/custom-tabbar",
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar",
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "up-cell": "../../uni_modules/uview-plus/components/u-cell/u-cell",
+    "up-cell-group": "../../uni_modules/uview-plus/components/u-cell-group/u-cell-group"
+  }
+}

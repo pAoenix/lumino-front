@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "新建账本",
+  "usingComponents": {
+    "up-checkbox": "../../uni_modules/uview-plus/components/u-checkbox/u-checkbox",
+    "up-checkbox-group": "../../uni_modules/uview-plus/components/u-checkbox-group/u-checkbox-group"
+  }
+}

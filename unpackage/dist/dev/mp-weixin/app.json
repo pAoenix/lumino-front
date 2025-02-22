@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/details/index",
+    "pages/index/index",
+    "pages/my/index",
+    "pages/find/index",
+    "pages/chart/index",
+    "pages/account/add-count",
+    "pages/account/add-bill",
+    "pages/account/account-details",
+    "pages/account/add-account-book",
+    "pages/account/participants",
+    "pages/find/reply"
+  ],
+  "window": {
+    "pageOrientation": "portrait",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "记个账单",
+    "navigationBarBackgroundColor": "#55c9c9",
+    "backgroundColor": "#FFF0"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7A7E83",
+    "selectedColor": "#007AFF",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/details/index",
+        "iconPath": "static/details.png",
+        "selectedIconPath": "static/detailsHL.png",
+        "text": "账本"
+      },
+      {
+        "pagePath": "pages/chart/index",
+        "iconPath": "static/chart.png",
+        "selectedIconPath": "static/chartHL.png",
+        "text": "图表"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/add.png",
+        "selectedIconPath": "static/addHL.png",
+        "class": "aaaaaaa",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/find/index",
+        "iconPath": "static/find.png",
+        "selectedIconPath": "static/findHL.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "static/my.png",
+        "selectedIconPath": "static/myHL.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

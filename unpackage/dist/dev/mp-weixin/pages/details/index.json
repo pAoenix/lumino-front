@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "账本",
+  "usingComponents": {
+    "custom-tabbar": "../component/custom-tabbar",
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "up-sticky": "../../uni_modules/uview-plus/components/u-sticky/u-sticky",
+    "up-tag": "../../uni_modules/uview-plus/components/u-tag/u-tag",
+    "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group",
+    "up-divider": "../../uni_modules/uview-plus/components/u-divider/u-divider"
+  }
+}

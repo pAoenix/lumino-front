@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "账单详情",
+  "usingComponents": {
+    "svg-icon": "../component/svg-icon",
+    "up-picker": "../../uni_modules/uview-plus/components/u-picker/u-picker",
+    "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group"
+  }
+}

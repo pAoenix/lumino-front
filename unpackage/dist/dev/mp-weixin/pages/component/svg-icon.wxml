@@ -1,0 +1,1 @@
+<view class="{{['svg-icon', 'data-v-00742c3c', b, virtualHostClass]}}" style="{{'width:' + c + ';' + ('height:' + d) + ';' + virtualHostStyle}}" hidden="{{virtualHostHidden}}" id="{{virtualHostId}}"><image class="svg_img data-v-00742c3c" src="{{a}}" mode="aspectFit"/></view>

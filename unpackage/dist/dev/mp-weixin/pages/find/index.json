@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "发现",
+  "usingComponents": {
+    "custom-tabbar": "../component/custom-tabbar",
+    "up-tabs": "../../uni_modules/uview-plus/components/u-tabs/u-tabs",
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon"
+  }
+}
