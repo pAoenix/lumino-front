@@ -75,6 +75,14 @@
 		onLoad() {
 			this.getComment();
 		},
+		onShow: function() {
+			if (!uni.getStorageSync('token')) {
+				uni.switchTab({
+					url: `/pages/my/index`
+				});
+				return
+			}
+		},
 		methods: {
 			// 跳转到全部回复
 			toAllReply() {

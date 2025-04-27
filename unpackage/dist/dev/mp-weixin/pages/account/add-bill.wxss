@@ -63,8 +63,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   grid-gap: 23px 45px;
+  padding: 20px;
   justify-items: center;
-  padding: 20px 20px calc(80px + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 .add-bill .icon_warpper .icon_for.data-v-e990ce43 {
@@ -92,6 +92,13 @@
 }
 .add-bill .icon_warpper .isActive .icon_text.data-v-e990ce43 {
   color: #55c9c9;
+}
+.add-bill .invite-friends.data-v-e990ce43 {
+  padding: 20px 20px calc(80px + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .add-bill .bill_footer.data-v-e990ce43 {
   width: 100%;

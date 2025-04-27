@@ -1,21 +1,21 @@
 
 button {
-		margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .uni-tabbar-bottom {
-		display: none;
+  display: none;
 }
 .uni-tabbar {
-		box-shadow: 0 0 10px #f0f0f0;
+  box-shadow: 0 0 10px #f0f0f0;
 }
 .uni-tabbar__item {
-		transition: all 0.3s;
+  transition: all 0.3s;
 }
 .uni-tabbar__item.active {
-		transform: scale(1.2);
-		/* 放大 20% */
+  transform: scale(1.2);
+  /* 放大 20% */
 }
 .uni-tabbar-border {
-		display: none;
+  display: none;
 }
 page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}

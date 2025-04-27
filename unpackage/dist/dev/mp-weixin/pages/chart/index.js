@@ -6,6 +6,14 @@ const _sfc_main = {
   components: {
     SvgIcon,
     CustomTabbar
+  },
+  onShow: function() {
+    if (!common_vendor.index.getStorageSync("token")) {
+      common_vendor.index.switchTab({
+        url: `/pages/my/index`
+      });
+      return;
+    }
   }
 };
 if (!Array) {

@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_settingTime = require("../../utils/setting-time.js");
 const common_assets = require("../../common/assets.js");
 const CustomTabbar = () => "../component/custom-tabbar.js";
 const _sfc_main = {
@@ -23,20 +24,48 @@ const _sfc_main = {
       ]
     };
   },
-  onShow: function() {
-    const accounts = getApp().globalData.accountBookList;
-    common_vendor.index.__f__("log", "at pages/details/index.vue:88", accounts, "---accounts");
-    const users = getApp().globalData.userList;
-    this.userList = users;
-    this.accountList = accounts;
+  onShow: async function() {
+    if (!common_vendor.index.getStorageSync("token")) {
+      common_vendor.index.switchTab({
+        url: `/pages/my/index`
+      });
+      return;
+    }
+    getApp().iconInfoData();
+    getApp().userInfoData().then((rea) => {
+      getApp().accountBookData(0).then((res) => {
+        common_vendor.index.__f__("log", "at pages/details/index.vue:143", res);
+        const accounts = getApp().globalData.accountBookList;
+        common_vendor.index.__f__("log", "at pages/details/index.vue:145", accounts, "---accounts");
+        const users = getApp().globalData.userList;
+        this.userList = users;
+        this.accountList = accounts;
+      }).catch((err) => {
+        common_vendor.index.__f__("log", "at pages/details/index.vue:151", err);
+        this.userList = [];
+        this.accountList = [];
+      });
+    });
+  },
+  onLoad() {
+  },
+  mounted() {
   },
   methods: {
+    setTime(time) {
+      if (time) {
+        common_vendor.index.__f__("log", "at pages/details/index.vue:163", utils_settingTime.formatDate(time), "---formatDate(time)");
+        return utils_settingTime.formatDate(time);
+      } else {
+        return "";
+      }
+    },
     getImg(id) {
       var _a;
       if ((_a = this.userList) == null ? void 0 : _a.length) {
         let data = this.userList.find((item) => item.id == id);
         if (data) {
-          return data.img;
+          return data.icon_url;
         } else {
           return "";
         }
@@ -46,8 +75,9 @@ const _sfc_main = {
     },
     getUserImg(item) {
       var _a;
-      if ((_a = item.users) == null ? void 0 : _a.length) {
-        return item.users.map((items) => this.getImg(items));
+      if ((_a = item.user_ids) == null ? void 0 : _a.length) {
+        common_vendor.index.__f__("log", "at pages/details/index.vue:183", item.user_ids.map((items) => this.getImg(items)));
+        return item.user_ids.map((items) => this.getImg(items));
       } else {
         return [];
       }
@@ -122,8 +152,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_assets._imports_0,
     f: common_vendor.f($data.accountList, (item, index, i0) => {
       return {
-        a: common_vendor.t(item.createAt),
-        b: common_vendor.t(item.title),
+        a: common_vendor.t($options.setTime(item.created_at)),
+        b: common_vendor.t(item.name),
         c: "0bb53e62-3-" + i0,
         d: common_vendor.o(($event) => $options.toAccountPage(item), index),
         e: "0bb53e62-4-" + i0,
@@ -138,8 +168,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         i: common_vendor.o(($event) => $options.updateAccountBook(item), index),
         j: "0bb53e62-7-" + i0,
         k: "0bb53e62-8-" + i0,
-        l: common_vendor.t(item.incomeAmount),
-        m: common_vendor.t(item.expensesAmount),
+        l: common_vendor.t(item.income),
+        m: common_vendor.t(item.spending),
         n: index
       };
     }),

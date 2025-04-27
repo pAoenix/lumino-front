@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "图标管理",
+  "usingComponents": {
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar"
+  }
+}

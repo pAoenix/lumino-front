@@ -3,6 +3,7 @@
     "pages/details/index",
     "pages/index/index",
     "pages/my/index",
+    "pages/my/login",
     "pages/find/index",
     "pages/chart/index",
     "pages/account/add-count",
@@ -10,7 +11,9 @@
     "pages/account/account-details",
     "pages/account/add-account-book",
     "pages/account/participants",
-    "pages/find/reply"
+    "pages/find/reply",
+    "pages/my/icons",
+    "pages/my/add-icon"
   ],
   "window": {
     "pageOrientation": "portrait",
@@ -42,7 +45,6 @@
         "pagePath": "pages/index/index",
         "iconPath": "static/add.png",
         "selectedIconPath": "static/addHL.png",
-        "class": "aaaaaaa",
         "text": "记账"
       },
       {

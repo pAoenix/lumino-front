@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "u-avatar": "../u-avatar/u-avatar",
-    "up-text": "../u-text/u-text"
-  }
-}

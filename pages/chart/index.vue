@@ -16,6 +16,14 @@
 			SvgIcon,
 			CustomTabbar,
 		},
+		onShow: function() {
+			if (!uni.getStorageSync('token')) {
+				uni.switchTab({
+					url: `/pages/my/index`
+				});
+				return
+			}
+		},
 	};
 </script>
 

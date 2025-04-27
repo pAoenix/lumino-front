@@ -13,13 +13,13 @@ const _sfc_main = {
         },
         {
           name: "收入"
-        },
-        {
-          name: "转账"
-        },
-        {
-          name: "预交款"
         }
+        // {
+        // 	name: '转账',
+        // },
+        // {
+        // 	name: '预交款',
+        // },
       ],
       accountBook: null
     };
@@ -27,7 +27,7 @@ const _sfc_main = {
   watch: {
     inputValue: {
       handler(newVal) {
-        common_vendor.index.__f__("log", "at pages/account/add-count.vue:53", newVal);
+        common_vendor.index.__f__("log", "at pages/account/add-count.vue:73", newVal);
         if (newVal.indexOf("+") !== -1 || newVal.indexOf("-") !== -1 || newVal.indexOf("*") !== -1 || newVal.indexOf("/") !== -1) {
           this.conutNumber = `${this.calculateExpression(newVal).toFixed(2)}`;
         } else {
@@ -40,7 +40,7 @@ const _sfc_main = {
   },
   onShow: function() {
     const accountBook = getApp().globalData.accountBookData;
-    common_vendor.index.__f__("log", "at pages/account/add-count.vue:71", accountBook);
+    common_vendor.index.__f__("log", "at pages/account/add-count.vue:91", accountBook);
     this.accountBook = accountBook;
     getApp().globalData.accountBookData = null;
   },
@@ -113,7 +113,7 @@ const _sfc_main = {
       getApp().globalData.billCount = {
         ...this.accountBook,
         amount: number,
-        type: this.current
+        type: Number(this.current + 1)
       };
       common_vendor.index.navigateTo({
         url: `/pages/account/add-bill`

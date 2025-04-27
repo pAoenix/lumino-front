@@ -36,6 +36,14 @@ const _sfc_main = {
   onLoad() {
     this.getComment();
   },
+  onShow: function() {
+    if (!common_vendor.index.getStorageSync("token")) {
+      common_vendor.index.switchTab({
+        url: `/pages/my/index`
+      });
+      return;
+    }
+  },
   methods: {
     // 跳转到全部回复
     toAllReply() {
@@ -53,7 +61,7 @@ const _sfc_main = {
       }
     },
     tabChange(val) {
-      common_vendor.index.__f__("log", "at pages/find/index.vue:95", val);
+      common_vendor.index.__f__("log", "at pages/find/index.vue:103", val);
     },
     // 评论列表
     getComment() {

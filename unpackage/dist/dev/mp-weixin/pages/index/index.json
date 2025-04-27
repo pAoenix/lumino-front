@@ -1,10 +1,10 @@
 {
   "usingComponents": {
-    "svg-icon": "../component/svg-icon",
     "custom-tabbar": "../component/custom-tabbar",
     "up-dropdown-item": "../../uni_modules/uview-plus/components/u-dropdown-item/u-dropdown-item",
     "up-dropdown": "../../uni_modules/uview-plus/components/u-dropdown/u-dropdown",
     "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group",
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar",
     "up-swipe-action-item": "../../uni_modules/uview-plus/components/u-swipe-action-item/u-swipe-action-item",
     "up-swipe-action": "../../uni_modules/uview-plus/components/u-swipe-action/u-swipe-action"
   }

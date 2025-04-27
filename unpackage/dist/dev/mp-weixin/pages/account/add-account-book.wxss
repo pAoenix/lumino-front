@@ -50,6 +50,31 @@
 .checkbox_user.data-v-5a0be122 {
   padding: 10px 20px calc(80px + env(safe-area-inset-bottom));
 }
+.checkbox_user .invite-friends.data-v-5a0be122 {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Invite_box .Invite_title.data-v-5a0be122 {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+}
+.Invite_box .Invite_form.data-v-5a0be122 {
+  padding-bottom: 20px;
+}
+.Invite_box .Invite_bottom.data-v-5a0be122 {
+  width: 100%;
+  background: #55c9c9;
+  color: #fff;
+  height: 50px;
+  text-align: center;
+  border-radius: 0;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
 .bill_footer.data-v-5a0be122 {
   width: 100%;
   position: fixed;
@@ -59,8 +84,22 @@
   box-shadow: 0 0 10px #aaa;
   box-sizing: border-box;
   padding: 10px 20px calc(0px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 10px;
+}
+.bill_footer .bill_dele.data-v-5a0be122 {
+  background: #e72221;
+  color: #fff;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  border-radius: 5px;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .bill_footer .bill_submit.data-v-5a0be122 {
+  width: 100%;
   background: #55c9c9;
   color: #fff;
   height: 50px;

@@ -1,8 +1,10 @@
 {
   "navigationBarTitleText": "账单详情",
   "usingComponents": {
-    "svg-icon": "../component/svg-icon",
     "up-picker": "../../uni_modules/uview-plus/components/u-picker/u-picker",
-    "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group"
+    "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group",
+    "up-textarea": "../../uni_modules/uview-plus/components/u-textarea/u-textarea",
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar",
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon"
   }
 }

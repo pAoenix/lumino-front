@@ -1,9 +1,11 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_settingTime = require("../../utils/setting-time.js");
 const SvgIcon = () => "../component/svg-icon.js";
 const _sfc_main = {
   data() {
     return {
+      pic: "/static/logo.png",
       billData: null,
       billUpdateData: null,
       iconData: [],
@@ -15,53 +17,55 @@ const _sfc_main = {
       selectAccountName: "现金",
       accountTypeOptions: [],
       accountUser: [],
-      accountUserUrls: []
+      accountUserUrls: [],
+      description: ""
     };
   },
   components: {
     SvgIcon
   },
   onShow: function() {
-    const IconData = getApp().globalData.iconArray;
+    const IconData = getApp().globalData.iconData;
     this.iconData = IconData;
     const data = getApp().globalData.billCount;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:77", data, "----billCount");
-    if (data.icon) {
-      this.iconActive = data.icon;
+    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:121", data, "----billCount");
+    if (data == null ? void 0 : data.iconId) {
+      this.iconActive = data.iconId;
     }
-    if (data.text) {
+    if (data == null ? void 0 : data.text) {
       this.textActive = data.text;
     }
-    if (data.accountId) {
+    if (data == null ? void 0 : data.accountId) {
       this.selectAccountId = data.accountId;
     }
-    if (data.accountName) {
+    if (data == null ? void 0 : data.accountName) {
       this.selectAccountName = data.accountName;
     }
     this.billData = data;
     getApp().globalData.accountBookList;
     const accountType = getApp().globalData.accountType;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:95", accountType);
+    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:139", accountType);
     this.accountTypeOptions = [accountType];
     if (!data.accountId) {
       this.selectAccountId = accountType[0].id;
       this.selectAccountName = accountType[0].label;
     }
     getApp().globalData.userList;
-    this.accountUser = [data.accountBookUser[0]];
-    this.accountUserUrls = [data.accountBookUserUrls[0]];
+    let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
+    this.accountUser = [userInfo.id];
+    this.accountUserUrls = [userInfo.icon_url];
     const updata = getApp().globalData.updateAcconutData;
     if (updata) {
-      this.iconActive = updata.icon;
+      this.iconActive = updata.iconId;
       this.textActive = updata.text;
       this.selectAccountId = updata.accountId;
       this.selectAccountName = updata.accountName;
       this.billData = updata;
     }
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:114", updata, "----updateAcconutData");
+    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:159", updata, "----updateAcconutData");
     this.billUpdateData = updata;
     const selectUserList = getApp().globalData.selectUserList;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:118", selectUserList);
+    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:163", selectUserList);
     if (selectUserList) {
       this.accountUser = selectUserList.accountUser;
       this.accountUserUrls = selectUserList.accountUserUrls;
@@ -73,18 +77,24 @@ const _sfc_main = {
       const updata = getApp().globalData.updateAcconutData;
       getApp().globalData.billCount = {
         ...data,
-        icon: item.icon,
-        text: item.text
+        iconId: item.id,
+        text: item.name
       };
-      this.iconActive = item.icon;
-      this.textActive = item.text;
+      this.iconActive = item.id;
+      this.textActive = item.name;
       if (!updata)
         return;
       getApp().globalData.updateAcconutData = {
         ...updata,
-        icon: item.icon,
-        text: item.text
+        iconId: item.id,
+        text: item.name
       };
+    },
+    addIcons() {
+      getApp().globalData.icons = 1;
+      common_vendor.index.navigateTo({
+        url: "/pages/my/icons"
+      });
     },
     confirmAcconut(item) {
       const data = getApp().globalData.billCount;
@@ -118,19 +128,49 @@ const _sfc_main = {
       });
     },
     submit() {
-      getApp().globalData.selectBillData = {
-        ...this.billData,
-        accountId: this.selectAccountId,
-        accountName: this.selectAccountName,
-        icon: this.iconActive,
-        text: this.textActive,
-        accountUser: this.accountUser,
-        update: this.billUpdateData ? 1 : 0
+      let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
+      let data = {
+        id: this.billUpdateData ? this.billUpdateData.id : void 0,
+        amount: Number(this.billData.amount),
+        account_book_id: Number(this.billData.accountBookId),
+        category_id: this.iconActive,
+        date: utils_settingTime.formatDate(/* @__PURE__ */ new Date()),
+        creator_id: userInfo.id,
+        pay_user_id: userInfo.id,
+        related_user_ids: this.accountUser,
+        type: this.billData.type,
+        description: this.description
       };
-      getApp().globalData.billCount = null;
-      getApp().globalData.updateAcconutData = null;
-      common_vendor.index.switchTab({
-        url: `/pages/index/index`
+      common_vendor.index.__f__("log", "at pages/account/add-bill.vue:237", data);
+      common_vendor.index.request({
+        url: `${this.$baseURL}/api/v1/transaction`,
+        method: this.billUpdateData ? "PUT" : "POST",
+        data,
+        success: (res) => {
+          var _a, _b, _c, _d;
+          if (((_a = res.data) == null ? void 0 : _a.message) && ((_b = res.data) == null ? void 0 : _b.message)) {
+            common_vendor.index.showToast({
+              title: ((_c = res.data) == null ? void 0 : _c.message) ? (_d = res.data) == null ? void 0 : _d.message : this.billUpdateData ? "修改交易失败" : "创建交易失败",
+              icon: "none"
+            });
+          } else {
+            common_vendor.index.showToast({
+              title: this.billUpdateData ? "修改交易成功" : "创建交易成功"
+            });
+            getApp().globalData.billCount = null;
+            getApp().globalData.updateAcconutData = null;
+            common_vendor.index.switchTab({
+              url: `/pages/index/index`
+            });
+          }
+        },
+        fail: (err) => {
+          common_vendor.index.__f__("log", "at pages/account/add-bill.vue:265", err);
+          common_vendor.index.showToast({
+            title: this.billUpdateData ? "修改交易失败" : "创建交易失败",
+            icon: "none"
+          });
+        }
       });
     }
   }
@@ -138,19 +178,24 @@ const _sfc_main = {
 if (!Array) {
   const _easycom_up_picker2 = common_vendor.resolveComponent("up-picker");
   const _easycom_up_avatar_group2 = common_vendor.resolveComponent("up-avatar-group");
-  const _component_SvgIcon = common_vendor.resolveComponent("SvgIcon");
-  (_easycom_up_picker2 + _easycom_up_avatar_group2 + _component_SvgIcon)();
+  const _easycom_up_textarea2 = common_vendor.resolveComponent("up-textarea");
+  const _easycom_up_avatar2 = common_vendor.resolveComponent("up-avatar");
+  const _easycom_up_icon2 = common_vendor.resolveComponent("up-icon");
+  (_easycom_up_picker2 + _easycom_up_avatar_group2 + _easycom_up_textarea2 + _easycom_up_avatar2 + _easycom_up_icon2)();
 }
 const _easycom_up_picker = () => "../../uni_modules/uview-plus/components/u-picker/u-picker.js";
 const _easycom_up_avatar_group = () => "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group.js";
+const _easycom_up_textarea = () => "../../uni_modules/uview-plus/components/u-textarea/u-textarea.js";
+const _easycom_up_avatar = () => "../../uni_modules/uview-plus/components/u-avatar/u-avatar.js";
+const _easycom_up_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
 if (!Math) {
-  (_easycom_up_picker + _easycom_up_avatar_group)();
+  (_easycom_up_picker + _easycom_up_avatar_group + _easycom_up_textarea + _easycom_up_avatar + _easycom_up_icon)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: $data.billData
   }, $data.billData ? {
-    b: common_vendor.t(["支出", "收入", "转账", "预交款"][$data.billData.type]),
+    b: common_vendor.t(["", "支出", "收入", "转账", "预交款"][$data.billData.type]),
     c: common_vendor.t(Number($data.billData.amount).toFixed(2))
   } : {}, {
     d: common_vendor.t($data.selectAccountName),
@@ -171,21 +216,32 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       gap: "0.4"
     }),
     l: common_vendor.o((...args) => $options.selectParticipants && $options.selectParticipants(...args)),
-    m: common_vendor.f($data.iconData, (item, index, i0) => {
+    m: common_vendor.o(($event) => $data.description = $event),
+    n: common_vendor.p({
+      autoHeight: true,
+      placeholder: "请输入内容",
+      modelValue: $data.description
+    }),
+    o: common_vendor.f($data.iconData, (item, index, i0) => {
       return {
-        a: "e990ce43-2-" + i0,
+        a: "e990ce43-3-" + i0,
         b: common_vendor.p({
-          width: "50px",
-          height: "50px",
-          name: $data.iconActive == item.icon ? `${item.icon}-hover` : item.icon
+          src: item.icon_url ? item.icon_url : $data.pic,
+          size: "50"
         }),
-        c: common_vendor.t(item.text),
+        c: common_vendor.t(item.name),
         d: common_vendor.o(($event) => $options.iconSecelt(item), index),
-        e: $data.iconActive == item.icon ? 1 : "",
+        e: $data.iconActive == item.id ? 1 : "",
         f: index
       };
     }),
-    n: common_vendor.o(($event) => $options.submit())
+    p: common_vendor.p({
+      name: "plus-circle",
+      color: "#55c9c9",
+      size: "28"
+    }),
+    q: common_vendor.o(($event) => $options.addIcons()),
+    r: common_vendor.o(($event) => $options.submit())
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e990ce43"]]);

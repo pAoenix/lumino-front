@@ -11,11 +11,20 @@ const _sfc_main = {
     };
   },
   onShow: function() {
+    let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
     const users = getApp().globalData.userList;
     this.userList = users;
     const data = getApp().globalData.participantsData;
-    this.accountUser = data.accountUser.map((item) => item);
-    this.accountUserUrls = this.accountUser.map((item) => this.userList.find((items) => items.id == item).img);
+    common_vendor.index.__f__("log", "at pages/account/participants.vue:56", data, "-------<<<<<<<<<<");
+    let newUsers = data.accountUser.some((item) => item.id == userInfo.id) ? data.accountUser.concat([userInfo]) : data.accountUser;
+    this.accountUser = newUsers.map((item) => item);
+    let newUsersSele = this.userList.concat([userInfo]);
+    this.accountUserUrls = this.accountUser.map(
+      (item) => {
+        var _a;
+        return ((_a = newUsersSele.find((items) => items.id == item)) == null ? void 0 : _a.icon_url) || "";
+      }
+    );
     this.userShowList = [];
     users.forEach((item) => {
       var _a;
@@ -23,15 +32,31 @@ const _sfc_main = {
         this.userShowList.push(item);
       }
     });
+    this.userShowList.unshift(userInfo);
   },
   methods: {
     checkboxChange(data) {
-      this.accountUserUrls = data.map((item) => this.userList.find((items) => items.id == item).img);
+      let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
+      let newUsers = this.userList.concat([userInfo]);
+      this.accountUserUrls = data.map(
+        (item) => {
+          var _a;
+          return ((_a = newUsers.find((items) => items.id == item)) == null ? void 0 : _a.icon_url) || "";
+        }
+      );
     },
     allCheckedChange(data) {
       if (data) {
+        let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
+        let newUsers = this.userList.concat([userInfo]);
         this.accountUser = this.userShowList.map((item) => item.id);
-        this.accountUserUrls = this.userShowList.map((item) => this.userList.find((items) => items.id == item.id).img);
+        this.accountUserUrls = this.userShowList.map(
+          (item) => {
+            var _a;
+            return ((_a = newUsers.find((items) => items.id == item.id)) == null ? void 0 : _a.icon_url) || "";
+          }
+        );
+        common_vendor.index.__f__("log", "at pages/account/participants.vue:95", this.accountUserUrls);
       } else {
         this.accountUser = [];
         this.accountUserUrls = [];
@@ -70,7 +95,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     d: common_vendor.f($data.userShowList, (item, index, i0) => {
       return {
-        a: item.img,
+        a: item.icon_url,
         b: common_vendor.t(item.name),
         c: index,
         d: "46ee22e8-2-" + i0 + ",46ee22e8-1",

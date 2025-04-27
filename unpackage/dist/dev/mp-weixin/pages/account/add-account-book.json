@@ -5,6 +5,8 @@
     "up-cell": "../../uni_modules/uview-plus/components/u-cell/u-cell",
     "up-checkbox": "../../uni_modules/uview-plus/components/u-checkbox/u-checkbox",
     "up-checkbox-group": "../../uni_modules/uview-plus/components/u-checkbox-group/u-checkbox-group",
-    "up-cell-group": "../../uni_modules/uview-plus/components/u-cell-group/u-cell-group"
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "up-cell-group": "../../uni_modules/uview-plus/components/u-cell-group/u-cell-group",
+    "up-popup": "../../uni_modules/uview-plus/components/u-popup/u-popup"
   }
 }

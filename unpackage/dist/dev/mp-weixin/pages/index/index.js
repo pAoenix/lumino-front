@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+require("../../utils/request.js");
 const SvgIcon = () => "../component/svg-icon.js";
 const CustomTabbar = () => "../component/custom-tabbar.js";
 const _sfc_main = {
@@ -9,6 +10,7 @@ const _sfc_main = {
   },
   data() {
     return {
+      pic: "/static/logo.png",
       show: false,
       accountBookId: "",
       accountBookName: "",
@@ -17,91 +19,7 @@ const _sfc_main = {
       accountBookUser: [],
       accountBookUserUrls: [],
       userList: [],
-      accountList: [{
-        id: 1,
-        type: "0",
-        amount: 399,
-        text: "零食",
-        icon: "icon-lingshi-fill",
-        accountBook: {
-          createAt: "2025-01-20 15:26:56",
-          expensesAmount: 99.99,
-          id: 1,
-          incomeAmount: 5899.99,
-          title: "默认账本",
-          users: [1, 2, 3, 4, 5, 8]
-        },
-        accountBookId: 1,
-        accountBookName: "默认账本",
-        accountBookUser: [1, 2, 3, 4, 5, 8],
-        accountBookUserUrls: [
-          "/static/user/user1.png",
-          "/static/user/user2.png",
-          "/static/user/user3.png",
-          "/static/user/user4.png",
-          "/static/user/user5.png",
-          "/static/user/user8.png"
-        ],
-        accountUser: [1, 2, 4, 5, 8],
-        accountId: 3,
-        accountName: "现金"
-      }, {
-        id: 2,
-        type: "0",
-        amount: 600.33,
-        text: "宠物",
-        icon: "icon-chongwu-fill",
-        accountBook: {
-          createAt: "2025-01-20 15:26:56",
-          expensesAmount: 99.99,
-          id: 1,
-          incomeAmount: 5899.99,
-          title: "默认账本",
-          users: [1, 2, 3, 4, 5, 8]
-        },
-        accountBookId: 1,
-        accountBookName: "默认账本",
-        accountBookUser: [1, 2, 3, 4, 5, 8],
-        accountBookUserUrls: [
-          "/static/user/user1.png",
-          "/static/user/user2.png",
-          "/static/user/user3.png",
-          "/static/user/user4.png",
-          "/static/user/user5.png",
-          "/static/user/user8.png"
-        ],
-        accountUser: [2, 5, 8],
-        accountId: 3,
-        accountName: "现金"
-      }, {
-        id: 3,
-        type: "1",
-        amount: 999.33,
-        text: "机票",
-        icon: "icon-jipiao-fill",
-        accountBook: {
-          createAt: "2025-01-20 15:26:56",
-          expensesAmount: 99.99,
-          id: 1,
-          incomeAmount: 5899.99,
-          title: "默认账本",
-          users: [1, 2, 3, 4, 5, 8]
-        },
-        accountBookId: 1,
-        accountBookName: "默认账本",
-        accountBookUser: [1, 2, 3, 4, 5, 8],
-        accountBookUserUrls: [
-          "/static/user/user1.png",
-          "/static/user/user2.png",
-          "/static/user/user3.png",
-          "/static/user/user4.png",
-          "/static/user/user5.png",
-          "/static/user/user8.png"
-        ],
-        accountUser: [3, 4, 8],
-        accountId: 3,
-        accountName: "现金"
-      }],
+      accountList: [],
       options: [
         {
           text: "编辑",
@@ -116,75 +34,120 @@ const _sfc_main = {
           }
         }
       ],
-      account_warpper: [
-        {
-          amount: 8888.88,
-          amounts: 22.22,
-          type: "账单支出（¥）",
-          title: "今天杨宗易支出 ¥:33345.00 元"
-        },
-        {
-          amount: 8888.88,
-          amounts: 22.22,
-          type: "账单收入（¥）",
-          title: "今日杨宗易收入 ¥:33552.00 元"
-        },
-        {
-          amount: 8888.88,
-          amounts: 22.22,
-          type: "账单转账（¥）",
-          title: "今日杨宗易转账 ¥:33552.00 元"
-        },
-        {
-          amount: 8888.88,
-          amounts: 22.22,
-          type: "账单预交款（¥）",
-          title: "今日杨宗易预交款¥:33552.00 元"
-        }
-      ]
+      account_warpper: []
     };
   },
-  computed: {},
+  onLoad() {
+  },
   onShow: function() {
-    const accounts = getApp().globalData.accountBookList;
-    const activeAccounts = getApp().globalData.activeAccountBookList;
-    const users = getApp().globalData.userList;
-    this.userList = users;
-    this.accountBookList = accounts.map((item) => {
-      return {
-        ...item,
-        label: item.title,
-        value: item.id
-      };
-    });
-    if (activeAccounts) {
-      this.accountBook = activeAccounts;
-      this.accountBookId = activeAccounts.id;
-      this.accountBookName = activeAccounts.title;
-      this.accountBookUser = activeAccounts.users;
-      this.accountBookUserUrls = activeAccounts.users.map((item) => users.find((items) => items.id == item).img);
-    } else {
-      this.accountBook = accounts[0];
-      this.accountBookId = accounts[0].id;
-      this.accountBookName = accounts[0].title;
-      this.accountBookUser = accounts[0].users;
-      this.accountBookUserUrls = accounts[0].users.map((item) => users.find((items) => items.id == item).img);
+    if (!common_vendor.index.getStorageSync("token")) {
+      common_vendor.index.switchTab({
+        url: `/pages/my/index`
+      });
+      return;
     }
-    const data = getApp().globalData.selectBillData;
-    if (data) {
-      if (data.update) {
-        let index = this.accountList.findIndex((item) => item.id == data.id);
-        this.accountList[index] = data;
-      } else {
-        this.accountList.unshift({
-          ...data,
-          id: (/* @__PURE__ */ new Date()).getTime()
+    getApp().iconInfoData();
+    getApp().userInfoData().then((rea) => {
+      getApp().accountBookData(0).then((res) => {
+        const accounts = getApp().globalData.accountBookList;
+        const activeAccounts = getApp().globalData.activeAccountBookList;
+        const users = getApp().globalData.userList;
+        this.userList = users;
+        this.accountBookList = accounts.map((item) => {
+          return {
+            ...item,
+            label: item.name,
+            value: item.id
+          };
         });
-      }
-    }
-    getApp().globalData.selectBillData = null;
+        if (activeAccounts) {
+          this.accountBook = activeAccounts;
+          this.accountBookId = activeAccounts.id;
+          this.accountBookName = activeAccounts.name;
+          this.accountBookUser = activeAccounts.user_ids;
+          this.accountBookUserUrls = activeAccounts.user_ids.map(
+            (item) => {
+              var _a;
+              return (_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url;
+            }
+          );
+        } else {
+          this.accountBook = accounts[0];
+          this.accountBookId = accounts[0].id;
+          this.accountBookName = accounts[0].name;
+          this.accountBookUser = accounts[0].user_ids;
+          this.accountBookUserUrls = accounts[0].user_ids.map(
+            (item) => {
+              var _a;
+              return (_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url;
+            }
+          );
+        }
+        this.getTransactionData();
+      }).catch((err) => {
+      });
+    });
   },
   methods: {
+    getTransactionData() {
+      let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
+      common_vendor.index.request({
+        url: `${this.$baseURL}/api/v1/transaction?account_book_id=${this.accountBookId}`,
+        method: "GET",
+        success: (res) => {
+          var _a, _b, _c, _d, _e, _f;
+          let newData = [];
+          if ((_b = (_a = res.data) == null ? void 0 : _a.transactions) == null ? void 0 : _b.length) {
+            (_c = res.data) == null ? void 0 : _c.transactions.forEach((item) => {
+              var _a2;
+              if ((_a2 = item.Items) == null ? void 0 : _a2.length) {
+                item.Items.forEach((items) => {
+                  let icon = res.data.categorys.find(
+                    (tem) => tem.id == items.category_id
+                  );
+                  let userData = res.data.users.find(
+                    (tem) => tem.id == items.pay_user_id
+                  );
+                  items.icon_url = icon ? icon.icon_url : "";
+                  items.iconName = icon ? icon.name : "";
+                  items.userName = userData ? userData.name : "";
+                });
+              }
+            });
+            let Spendings = (_d = res.data) == null ? void 0 : _d.transactions.reduce(
+              (sum, item) => sum + item.Spending,
+              0
+            );
+            let Incomes = (_e = res.data) == null ? void 0 : _e.transactions.reduce(
+              (sum, item) => sum + item.Income,
+              0
+            );
+            newData.push(
+              {
+                amount: Number(Number(Spendings).toFixed(2)),
+                amounts: userInfo.balance,
+                type: "账单支出（¥）",
+                name: `总支出 ¥:${Number(Number(Spendings).toFixed(2))} 元`
+              },
+              {
+                amount: Number(Number(Incomes).toFixed(2)),
+                amounts: userInfo.balance,
+                type: "账单收入（¥）",
+                name: `总收入 ¥:${Number(Number(Incomes).toFixed(2))} 元`
+              }
+            );
+            this.account_warpper = newData;
+            this.accountList = (_f = res.data) == null ? void 0 : _f.transactions;
+          } else {
+            this.account_warpper = [];
+            this.accountList = [];
+          }
+        },
+        fail: (err) => {
+          this.accountList = [];
+        }
+      });
+    },
     tabberChange() {
       getApp().globalData.accountBookData = {
         accountBook: this.accountBook,
@@ -198,16 +161,71 @@ const _sfc_main = {
       });
     },
     accountChange(item) {
+      var _a;
       this.accountBookId = item;
       let data = this.accountBookList.find((items) => items.id == item);
       this.accountBook = data;
       this.accountBookName = data.label;
-      this.accountBookUser = data.users;
-      this.accountBookUserUrls = data.users.map((tem) => this.userList.find((items) => items.id == tem).img);
+      this.accountBookUser = data.user_ids;
+      if ((_a = getApp().globalData.userList) == null ? void 0 : _a.length) {
+        this.accountBookUserUrls = data.user_ids.map(
+          (tem) => {
+            var _a2, _b;
+            return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? ((_b = this.userList.find((items) => items.id == tem)) == null ? void 0 : _b.icon_url) || "" : "";
+          }
+        );
+        common_vendor.index.__f__("log", "at pages/index/index.vue:268", this.accountBookUserUrls);
+        this.getTransactionData();
+      } else {
+        getApp().userInfoData().then((res) => {
+          common_vendor.index.__f__(
+            "log",
+            "at pages/index/index.vue:274",
+            getApp().globalData.userList,
+            "--getApp().globalData.userList"
+          );
+          this.userList = getApp().globalData.userList;
+          this.accountBookUserUrls = data.user_ids.map(
+            (tem) => {
+              var _a2;
+              return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? this.userList.find((items) => items.id == tem).icon_url : "";
+            }
+          );
+          common_vendor.index.__f__("log", "at pages/index/index.vue:285", this.accountBookUserUrls);
+          this.getTransactionData();
+        }).catch((err) => {
+          this.userList = [];
+        });
+      }
     },
     conutClick(props, item, index) {
       if (props.index == 1) {
-        this.accountList.splice(index, 1);
+        common_vendor.index.request({
+          url: `${this.$baseURL}/api/v1/transaction`,
+          method: "DELETE",
+          data: { id: item.id },
+          success: (res) => {
+            var _a, _b, _c, _d;
+            if (((_a = res.data) == null ? void 0 : _a.message) && ((_b = res.data) == null ? void 0 : _b.message)) {
+              common_vendor.index.showToast({
+                title: ((_c = res.data) == null ? void 0 : _c.message) ? (_d = res.data) == null ? void 0 : _d.message : "删除失败",
+                icon: "none"
+              });
+            } else {
+              common_vendor.index.showToast({
+                title: "删除成功"
+              });
+              this.getTransactionData();
+            }
+          },
+          fail: (err) => {
+            common_vendor.index.__f__("log", "at pages/index/index.vue:316", err);
+            common_vendor.index.showToast({
+              title: "删除失败",
+              icon: "none"
+            });
+          }
+        });
       } else {
         getApp().globalData.updateAcconutData = {
           ...item,
@@ -238,19 +256,20 @@ if (!Array) {
   const _easycom_up_dropdown_item2 = common_vendor.resolveComponent("up-dropdown-item");
   const _easycom_up_dropdown2 = common_vendor.resolveComponent("up-dropdown");
   const _easycom_up_avatar_group2 = common_vendor.resolveComponent("up-avatar-group");
-  const _component_SvgIcon = common_vendor.resolveComponent("SvgIcon");
+  const _easycom_up_avatar2 = common_vendor.resolveComponent("up-avatar");
   const _easycom_up_swipe_action_item2 = common_vendor.resolveComponent("up-swipe-action-item");
   const _easycom_up_swipe_action2 = common_vendor.resolveComponent("up-swipe-action");
   const _component_CustomTabbar = common_vendor.resolveComponent("CustomTabbar");
-  (_easycom_up_dropdown_item2 + _easycom_up_dropdown2 + _easycom_up_avatar_group2 + _component_SvgIcon + _easycom_up_swipe_action_item2 + _easycom_up_swipe_action2 + _component_CustomTabbar)();
+  (_easycom_up_dropdown_item2 + _easycom_up_dropdown2 + _easycom_up_avatar_group2 + _easycom_up_avatar2 + _easycom_up_swipe_action_item2 + _easycom_up_swipe_action2 + _component_CustomTabbar)();
 }
 const _easycom_up_dropdown_item = () => "../../uni_modules/uview-plus/components/u-dropdown-item/u-dropdown-item.js";
 const _easycom_up_dropdown = () => "../../uni_modules/uview-plus/components/u-dropdown/u-dropdown.js";
 const _easycom_up_avatar_group = () => "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group.js";
+const _easycom_up_avatar = () => "../../uni_modules/uview-plus/components/u-avatar/u-avatar.js";
 const _easycom_up_swipe_action_item = () => "../../uni_modules/uview-plus/components/u-swipe-action-item/u-swipe-action-item.js";
 const _easycom_up_swipe_action = () => "../../uni_modules/uview-plus/components/u-swipe-action/u-swipe-action.js";
 if (!Math) {
-  (_easycom_up_dropdown_item + _easycom_up_dropdown + _easycom_up_avatar_group + _easycom_up_swipe_action_item + _easycom_up_swipe_action)();
+  (_easycom_up_dropdown_item + _easycom_up_dropdown + _easycom_up_avatar_group + _easycom_up_avatar + _easycom_up_swipe_action_item + _easycom_up_swipe_action)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -274,25 +293,34 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: common_vendor.t(item.amount),
         b: common_vendor.t(item.type),
         c: common_vendor.t(item.amounts),
-        d: common_vendor.t(item.title),
+        d: common_vendor.t(item.name),
         e: index
       };
     }),
-    g: common_vendor.f($data.accountList, (item, index, i0) => {
+    g: common_vendor.f($data.accountList, (account, ind, i0) => {
       return {
-        a: "2a0f1042-5-" + i0 + "," + ("2a0f1042-4-" + i0),
-        b: common_vendor.p({
-          width: "40px",
-          height: "40px",
-          name: `${item.icon}-hover`
+        a: common_vendor.t(account.Date),
+        b: common_vendor.t(account.Spending),
+        c: common_vendor.t(account.Income),
+        d: common_vendor.f(account.Items, (item, index, i1) => {
+          return {
+            a: "2a0f1042-5-" + i0 + "-" + i1 + "," + ("2a0f1042-4-" + i0 + "-" + i1),
+            b: common_vendor.p({
+              src: item.icon_url ? item.icon_url : $data.pic,
+              size: "40"
+            }),
+            c: common_vendor.t(["", "支出", "收入", "转账", "预交款"][item.type]),
+            d: common_vendor.t(item.iconName),
+            e: common_vendor.t(item.userName),
+            f: common_vendor.t(["", "支出", "收入", "转账", "预交款"][item.type]),
+            g: common_vendor.t(Number(item.amount).toFixed(2)),
+            h: common_vendor.o((props) => $options.conutClick(props, item, index), index),
+            i: index,
+            j: "2a0f1042-4-" + i0 + "-" + i1 + "," + ("2a0f1042-3-" + i0)
+          };
         }),
-        c: common_vendor.t(["支出", "收入", "转账", "预交款"][item.type]),
-        d: common_vendor.t(item.text),
-        e: common_vendor.t(["支出", "收入", "转账", "预交款"][item.type]),
-        f: common_vendor.t(Number(item.amount).toFixed(2)),
-        g: common_vendor.o((props) => $options.conutClick(props, item, index), index),
-        h: index,
-        i: "2a0f1042-4-" + i0 + ",2a0f1042-3"
+        e: "2a0f1042-3-" + i0,
+        f: ind
       };
     }),
     h: common_vendor.p({

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "up-input": "../../uni_modules/uview-plus/components/u-input/u-input",
+    "up-cell": "../../uni_modules/uview-plus/components/u-cell/u-cell",
+    "up-upload": "../../uni_modules/uview-plus/components/u-upload/u-upload",
+    "up-cell-group": "../../uni_modules/uview-plus/components/u-cell-group/u-cell-group"
+  }
+}
