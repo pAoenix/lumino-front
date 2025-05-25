@@ -17,11 +17,12 @@ const _sfc_main = {
     };
   },
   onShow: function() {
+    common_vendor.index.__f__("log", "at pages/my/index.vue:67", common_vendor.index.getStorageSync("userInfo"), "---====userInfo");
     if (common_vendor.index.getStorageSync("token")) {
       this.isLogin = true;
       if (common_vendor.index.getStorageSync("userInfo")) {
         let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
-        common_vendor.index.__f__("log", "at pages/my/index.vue:88", userInfo, "-----userInfo");
+        common_vendor.index.__f__("log", "at pages/my/index.vue:72", userInfo, "-----userInfo");
         this.userFile = userInfo.icon_url;
       } else {
         this.userFile = null;
@@ -74,12 +75,12 @@ const _sfc_main = {
       this.phone_number = "";
     },
     async onGetPhoneNumber(e) {
-      common_vendor.index.__f__("log", "at pages/my/index.vue:139", common_vendor.index.getStorageSync("token"), "--->");
-      common_vendor.index.__f__("log", "at pages/my/index.vue:140", e, "-----<<<<");
+      common_vendor.index.__f__("log", "at pages/my/index.vue:123", common_vendor.index.getStorageSync("token"), "--->");
+      common_vendor.index.__f__("log", "at pages/my/index.vue:124", e, "-----<<<<");
       const loginRes = await common_vendor.index.login({
         provider: "weixin"
       });
-      common_vendor.index.__f__("log", "at pages/my/index.vue:145", loginRes);
+      common_vendor.index.__f__("log", "at pages/my/index.vue:129", loginRes);
       if (e.detail.errMsg !== "getPhoneNumber:ok") {
         common_vendor.index.showToast({
           title: "用户取消授权",
@@ -92,8 +93,8 @@ const _sfc_main = {
           provider: "weixin"
         });
         const code = loginRes2.code;
-        common_vendor.index.__f__("log", "at pages/my/index.vue:159", loginRes2);
-        common_vendor.index.__f__("log", "at pages/my/index.vue:161", e.detail);
+        common_vendor.index.__f__("log", "at pages/my/index.vue:143", loginRes2);
+        common_vendor.index.__f__("log", "at pages/my/index.vue:145", e.detail);
         return;
         const res = await common_vendor.index.request({
           url: "https://your-server.com/api/wxPhoneLogin",
@@ -115,7 +116,7 @@ const _sfc_main = {
           });
         }
       } catch (err) {
-        common_vendor.index.__f__("error", "at pages/my/index.vue:186", "获取手机号失败", err);
+        common_vendor.index.__f__("error", "at pages/my/index.vue:170", "获取手机号失败", err);
         common_vendor.index.showToast({
           title: "异常",
           icon: "none"
@@ -145,61 +146,76 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       src: $data.userFile ? $data.userFile : $data.pic,
       size: "120"
     }),
-    b: !$data.isLogin
-  }, !$data.isLogin ? {
-    c: common_vendor.o((...args) => $options.login && $options.login(...args))
-  } : {}, {
-    d: $data.isLogin
+    b: $data.isLogin
   }, $data.isLogin ? {
-    e: common_vendor.t($data.userName ? $data.userName : "lumino用户"),
-    f: common_vendor.t($data.phone_number ? $data.phone_number : "-")
+    c: common_vendor.t($data.userName ? $data.userName : "lumino用户"),
+    d: common_vendor.t($data.phone_number ? $data.phone_number : "-")
   } : {}, {
-    g: $data.isLogin
+    e: $data.isLogin
   }, $data.isLogin ? {
-    h: common_vendor.o($options.updateUser),
-    i: common_vendor.p({
+    f: common_vendor.o($options.updateUser),
+    g: common_vendor.p({
       name: "arrow-right",
       color: "#fff",
       size: "28"
     })
   } : {}, {
-    j: common_vendor.p({
-      icon: "rmb-circle",
-      title: "支付"
-    }),
-    k: common_vendor.p({
+    h: !$data.isLogin ? 1 : "",
+    i: !$data.isLogin
+  }, !$data.isLogin ? {
+    j: common_vendor.o((...args) => $options.login && $options.login(...args))
+  } : {}, {
+    k: $data.isLogin
+  }, $data.isLogin ? {
+    l: common_vendor.p({
+      border: false,
       icon: "star",
       title: "家庭组"
     }),
-    l: common_vendor.p({
+    m: common_vendor.p({
+      border: false,
       icon: "photo",
       title: "账单"
     }),
-    m: common_vendor.o(($event) => $options.iconsSetting()),
-    n: common_vendor.p({
+    n: common_vendor.o(($event) => $options.iconsSetting()),
+    o: common_vendor.p({
+      border: false,
       icon: "coupon",
       title: "图标"
     }),
-    o: common_vendor.p({
+    p: common_vendor.p({
+      border: false,
       icon: "heart",
       title: "关注"
     }),
-    p: $data.isLogin
-  }, $data.isLogin ? {
-    q: common_vendor.o($options.outLogin),
-    r: common_vendor.p({
-      icon: "man-delete-fill",
-      title: "退出登录"
+    q: common_vendor.p({
+      border: false
     })
   } : {}, {
-    s: common_vendor.p({
+    r: $data.isLogin
+  }, $data.isLogin ? {
+    s: common_vendor.o($options.outLogin),
+    t: common_vendor.p({
+      border: false,
+      icon: "man-delete-fill",
+      title: "退出登录"
+    }),
+    v: common_vendor.p({
+      border: false,
       icon: "setting",
       title: "设置"
     }),
-    t: common_vendor.p({
+    w: common_vendor.p({
+      border: false
+    })
+  } : {}, {
+    x: !$data.isLogin ? 1 : "",
+    y: $data.isLogin
+  }, $data.isLogin ? {
+    z: common_vendor.p({
       selected: 4
     })
-  });
+  } : {});
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createPage(MiniProgramPage);

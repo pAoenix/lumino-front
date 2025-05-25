@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const instance = common_vendor.axios.create({
-  baseURL: "http://182.92.152.108:8080",
+  baseURL: "https://happyall.xyz",
   // 设置接口的根 URL
   timeout: 1e4,
   // 请求超时时间

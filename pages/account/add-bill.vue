@@ -2,7 +2,7 @@
   <view class="add-bill">
     <view class="bill_details" v-if="billData">
       <view class="bill_type">
-        {{ ["", "支出", "收入", "转账", "预交款"][billData.type] }}
+        {{ ["", "收入", "支出", "转账", "预交款"][billData.type] }}
       </view>
       <view class="bill_warpper">
         <view class="bill_amount">

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 创建 axios 实例
 const instance = axios.create({
-	baseURL: 'http://182.92.152.108:8080', // 设置接口的根 URL
+	baseURL: 'https://happyall.xyz', // 设置接口的根 URL
 	timeout: 10000, // 请求超时时间
 	headers: {
 		'Content-Type': 'application/json',

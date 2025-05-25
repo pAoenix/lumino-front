@@ -26,6 +26,8 @@
 /* 文章场景相关 */
 .my {
   padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  height: 91vh;
+  background: #f5f5f5;
 }
 .my .my_warpper {
   display: flex;
@@ -36,7 +38,13 @@
   background: #55c9c9;
 }
 page {
-  background-color: #ededed;
+  overflow: hidden;
+}
+.my_nologin {
+  display: flex;
+  background: #55c9c9;
+  flex-direction: column;
+  justify-content: center;
 }
 .u-m-r-30 {
   margin-right: 30px;
@@ -77,4 +85,17 @@ page {
 }
 .u-cell-group {
   background-color: #fff;
+}
+.login_button {
+  padding: 20px 50px;
+}
+.login_button button {
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  text-align: center;
+}
+.my_warppers {
+  display: flex;
+  justify-content: center;
 }

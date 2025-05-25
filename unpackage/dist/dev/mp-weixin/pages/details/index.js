@@ -33,18 +33,19 @@ const _sfc_main = {
     }
     getApp().iconInfoData();
     getApp().userInfoData().then((rea) => {
+      common_vendor.index.__f__("log", "at pages/details/index.vue:104", rea);
       getApp().accountBookData(0).then((res) => {
-        common_vendor.index.__f__("log", "at pages/details/index.vue:143", res);
         const accounts = getApp().globalData.accountBookList;
-        common_vendor.index.__f__("log", "at pages/details/index.vue:145", accounts, "---accounts");
         const users = getApp().globalData.userList;
         this.userList = users;
         this.accountList = accounts;
       }).catch((err) => {
-        common_vendor.index.__f__("log", "at pages/details/index.vue:151", err);
+        common_vendor.index.__f__("log", "at pages/details/index.vue:114", err);
         this.userList = [];
         this.accountList = [];
       });
+    }).catch((err) => {
+      common_vendor.index.__f__("log", "at pages/details/index.vue:119", err);
     });
   },
   onLoad() {
@@ -54,7 +55,6 @@ const _sfc_main = {
   methods: {
     setTime(time) {
       if (time) {
-        common_vendor.index.__f__("log", "at pages/details/index.vue:163", utils_settingTime.formatDate(time), "---formatDate(time)");
         return utils_settingTime.formatDate(time);
       } else {
         return "";
@@ -62,21 +62,21 @@ const _sfc_main = {
     },
     getImg(id) {
       var _a;
+      let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
       if ((_a = this.userList) == null ? void 0 : _a.length) {
         let data = this.userList.find((item) => item.id == id);
         if (data) {
           return data.icon_url;
         } else {
-          return "";
+          return (userInfo == null ? void 0 : userInfo.icon_url) || "";
         }
       } else {
-        return "";
+        return (userInfo == null ? void 0 : userInfo.icon_url) || "";
       }
     },
     getUserImg(item) {
       var _a;
       if ((_a = item.user_ids) == null ? void 0 : _a.length) {
-        common_vendor.index.__f__("log", "at pages/details/index.vue:183", item.user_ids.map((items) => this.getImg(items)));
         return item.user_ids.map((items) => this.getImg(items));
       } else {
         return [];

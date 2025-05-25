@@ -9,10 +9,10 @@ const _sfc_main = {
       current: 0,
       radiolist: [
         {
-          name: "支出"
+          name: "收入"
         },
         {
-          name: "收入"
+          name: "支出"
         }
         // {
         // 	name: '转账',
@@ -27,7 +27,7 @@ const _sfc_main = {
   watch: {
     inputValue: {
       handler(newVal) {
-        common_vendor.index.__f__("log", "at pages/account/add-count.vue:73", newVal);
+        common_vendor.index.__f__("log", "at pages/account/add-count.vue:57", newVal);
         if (newVal.indexOf("+") !== -1 || newVal.indexOf("-") !== -1 || newVal.indexOf("*") !== -1 || newVal.indexOf("/") !== -1) {
           this.conutNumber = `${this.calculateExpression(newVal).toFixed(2)}`;
         } else {
@@ -40,7 +40,7 @@ const _sfc_main = {
   },
   onShow: function() {
     const accountBook = getApp().globalData.accountBookData;
-    common_vendor.index.__f__("log", "at pages/account/add-count.vue:91", accountBook);
+    common_vendor.index.__f__("log", "at pages/account/add-count.vue:75", accountBook);
     this.accountBook = accountBook;
     getApp().globalData.accountBookData = null;
   },

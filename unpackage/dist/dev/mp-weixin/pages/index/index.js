@@ -40,6 +40,7 @@ const _sfc_main = {
   onLoad() {
   },
   onShow: function() {
+    let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
     if (!common_vendor.index.getStorageSync("token")) {
       common_vendor.index.switchTab({
         url: `/pages/my/index`
@@ -68,7 +69,7 @@ const _sfc_main = {
           this.accountBookUserUrls = activeAccounts.user_ids.map(
             (item) => {
               var _a;
-              return (_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url;
+              return ((_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url) || (userInfo == null ? void 0 : userInfo.icon_url);
             }
           );
         } else {
@@ -79,7 +80,7 @@ const _sfc_main = {
           this.accountBookUserUrls = accounts[0].user_ids.map(
             (item) => {
               var _a;
-              return (_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url;
+              return ((_a = users.find((items) => items.id == item)) == null ? void 0 : _a.icon_url) || (userInfo == null ? void 0 : userInfo.icon_url);
             }
           );
         }
@@ -92,7 +93,7 @@ const _sfc_main = {
     getTransactionData() {
       let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
       common_vendor.index.request({
-        url: `${this.$baseURL}/api/v1/transaction?account_book_id=${this.accountBookId}`,
+        url: `${this.$baseURL}/api/v1/transaction?account_book_id=${this.accountBookId}&user_id=${userInfo.id}`,
         method: "GET",
         success: (res) => {
           var _a, _b, _c, _d, _e, _f;
@@ -122,20 +123,17 @@ const _sfc_main = {
               (sum, item) => sum + item.Income,
               0
             );
-            newData.push(
-              {
-                amount: Number(Number(Spendings).toFixed(2)),
-                amounts: userInfo.balance,
-                type: "账单支出（¥）",
-                name: `总支出 ¥:${Number(Number(Spendings).toFixed(2))} 元`
-              },
-              {
-                amount: Number(Number(Incomes).toFixed(2)),
-                amounts: userInfo.balance,
-                type: "账单收入（¥）",
-                name: `总收入 ¥:${Number(Number(Incomes).toFixed(2))} 元`
-              }
-            );
+            newData.push({
+              amount: Number(Number(Spendings).toFixed(2)),
+              amounts: userInfo.balance,
+              type: "账单支出（¥）",
+              name: `总支出 ¥:${Number(Number(Spendings).toFixed(2))} 元`
+            }, {
+              amount: Number(Number(Incomes).toFixed(2)),
+              amounts: userInfo.balance,
+              type: "账单收入（¥）",
+              name: `总收入 ¥:${Number(Number(Incomes).toFixed(2))} 元`
+            });
             this.account_warpper = newData;
             this.accountList = (_f = res.data) == null ? void 0 : _f.transactions;
           } else {
@@ -147,6 +145,16 @@ const _sfc_main = {
           this.accountList = [];
         }
       });
+    },
+    tabPage(url) {
+      common_vendor.index.__f__("log", "at pages/index/index.vue:228", url, "-----url");
+      if (url !== "/pages/index/index") {
+        this.accountBookId = "";
+        this.accountBookName = "";
+        this.account_warpper = [];
+        this.accountList = [];
+        this.accountBookUserUrls = [];
+      }
     },
     tabberChange() {
       getApp().globalData.accountBookData = {
@@ -162,6 +170,7 @@ const _sfc_main = {
     },
     accountChange(item) {
       var _a;
+      let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
       this.accountBookId = item;
       let data = this.accountBookList.find((items) => items.id == item);
       this.accountBook = data;
@@ -171,27 +180,19 @@ const _sfc_main = {
         this.accountBookUserUrls = data.user_ids.map(
           (tem) => {
             var _a2, _b;
-            return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? ((_b = this.userList.find((items) => items.id == tem)) == null ? void 0 : _b.icon_url) || "" : "";
+            return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? ((_b = this.userList.find((items) => items.id == tem)) == null ? void 0 : _b.icon_url) || (userInfo == null ? void 0 : userInfo.icon_url) : userInfo == null ? void 0 : userInfo.icon_url;
           }
         );
-        common_vendor.index.__f__("log", "at pages/index/index.vue:268", this.accountBookUserUrls);
         this.getTransactionData();
       } else {
         getApp().userInfoData().then((res) => {
-          common_vendor.index.__f__(
-            "log",
-            "at pages/index/index.vue:274",
-            getApp().globalData.userList,
-            "--getApp().globalData.userList"
-          );
           this.userList = getApp().globalData.userList;
           this.accountBookUserUrls = data.user_ids.map(
             (tem) => {
-              var _a2;
-              return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? this.userList.find((items) => items.id == tem).icon_url : "";
+              var _a2, _b;
+              return ((_a2 = this.userList) == null ? void 0 : _a2.length) ? ((_b = this.userList.find((items) => items.id == tem)) == null ? void 0 : _b.icon_url) || (userInfo == null ? void 0 : userInfo.icon_url) : userInfo == null ? void 0 : userInfo.icon_url;
             }
           );
-          common_vendor.index.__f__("log", "at pages/index/index.vue:285", this.accountBookUserUrls);
           this.getTransactionData();
         }).catch((err) => {
           this.userList = [];
@@ -203,7 +204,9 @@ const _sfc_main = {
         common_vendor.index.request({
           url: `${this.$baseURL}/api/v1/transaction`,
           method: "DELETE",
-          data: { id: item.id },
+          data: {
+            id: item.id
+          },
           success: (res) => {
             var _a, _b, _c, _d;
             if (((_a = res.data) == null ? void 0 : _a.message) && ((_b = res.data) == null ? void 0 : _b.message)) {
@@ -219,7 +222,7 @@ const _sfc_main = {
             }
           },
           fail: (err) => {
-            common_vendor.index.__f__("log", "at pages/index/index.vue:316", err);
+            common_vendor.index.__f__("log", "at pages/index/index.vue:308", err);
             common_vendor.index.showToast({
               title: "删除失败",
               icon: "none"
@@ -309,10 +312,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               src: item.icon_url ? item.icon_url : $data.pic,
               size: "40"
             }),
-            c: common_vendor.t(["", "支出", "收入", "转账", "预交款"][item.type]),
+            c: common_vendor.t(["", "收入", "支出", "转账", "预交款"][item.type]),
             d: common_vendor.t(item.iconName),
             e: common_vendor.t(item.userName),
-            f: common_vendor.t(["", "支出", "收入", "转账", "预交款"][item.type]),
+            f: common_vendor.t(["", "收入", "支出", "转账", "预交款"][item.type]),
             g: common_vendor.t(Number(item.amount).toFixed(2)),
             h: common_vendor.o((props) => $options.conutClick(props, item, index), index),
             i: index,
@@ -327,7 +330,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       options: $data.options
     }),
     i: common_vendor.o($options.tabberChange),
-    j: common_vendor.p({
+    j: common_vendor.o($options.tabPage),
+    k: common_vendor.p({
       selected: 2
     })
   };

@@ -195,7 +195,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: $data.billData
   }, $data.billData ? {
-    b: common_vendor.t(["", "支出", "收入", "转账", "预交款"][$data.billData.type]),
+    b: common_vendor.t(["", "收入", "支出", "转账", "预交款"][$data.billData.type]),
     c: common_vendor.t(Number($data.billData.amount).toFixed(2))
   } : {}, {
     d: common_vendor.t($data.selectAccountName),

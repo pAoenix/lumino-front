@@ -11,22 +11,20 @@ const _sfc_main = {
     };
   },
   onShow: function() {
-    common_vendor.index.__f__("log", "at pages/my/login.vue:67", common_vendor.index.getStorageSync("userInfo"));
+    common_vendor.index.__f__("log", "at pages/my/login.vue:46", common_vendor.index.getStorageSync("userInfo"));
     if (common_vendor.index.getStorageSync("userInfo")) {
       let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
       this.is_type = true;
       this.is_active = true;
       this.name = userInfo.name;
       this.phone_number = userInfo.phone_number;
-      this.icon_file = [
-        {
-          name: `${userInfo.name}-用户头像`,
-          size: 79797,
-          thumb: userInfo.icon_url,
-          type: "image",
-          url: userInfo.icon_url
-        }
-      ];
+      this.icon_file = [{
+        name: `${userInfo.name}-用户头像`,
+        size: 79797,
+        thumb: userInfo.icon_url,
+        type: "image",
+        url: userInfo.icon_url
+      }];
     }
   },
   onLoad() {
@@ -36,14 +34,12 @@ const _sfc_main = {
   methods: {
     async afterRead(event) {
       const file = event.file;
-      this.icon_file = [
-        {
-          ...file[0],
-          // 如果后续你还要上传
-          name: this.name ? `${this.name}-用户头像` : file.name,
-          type: "image"
-        }
-      ];
+      this.icon_file = [{
+        ...file[0],
+        // 如果后续你还要上传
+        name: this.name ? `${this.name}-用户头像` : file.name,
+        type: "image"
+      }];
     },
     deletePic(event) {
       this.icon_file = [];
@@ -87,32 +83,36 @@ const _sfc_main = {
           url: `${this.$baseURL}/api/v1/user?phone_number=${this.phone_number}`,
           method: "GET",
           success: (res) => {
-            var _a2, _b2, _c, _d;
-            if (((_a2 = res.data) == null ? void 0 : _a2.message) && ((_b2 = res.data) == null ? void 0 : _b2.message)) {
+            var _a2, _b2, _c, _d, _e, _f;
+            if (((_a2 = res.data) == null ? void 0 : _a2.message) && ((_b2 = res.data) == null ? void 0 : _b2.message) == "用户不存在") {
               common_vendor.index.showToast({
                 title: "用户不存在，请完成注册",
                 icon: "none"
               });
               this.is_active = true;
+            } else if (((_c = res.data) == null ? void 0 : _c.message) && ((_d = res.data) == null ? void 0 : _d.message) != "用户不存在") {
+              common_vendor.index.showToast({
+                title: "请输入正确手机格式",
+                icon: "none"
+              });
             } else {
               common_vendor.index.setStorageSync("token", this.phone_number);
               common_vendor.index.setStorageSync("userInfo", JSON.stringify(res.data));
               common_vendor.index.setStorageSync("userName", res.data.name);
               common_vendor.index.setStorageSync("phone_number", this.phone_number);
-              common_vendor.index.__f__("log", "at pages/my/login.vue:150", res.data);
-              if ((_d = (_c = res.data) == null ? void 0 : _c.friend) == null ? void 0 : _d.length) {
+              if ((_f = (_e = res.data) == null ? void 0 : _e.friend) == null ? void 0 : _f.length) {
                 const promiseList = res.data.friend.map(
                   (id) => this.getUserData(id)
                 );
                 Promise.all(promiseList).then((results) => {
-                  common_vendor.index.__f__("log", "at pages/my/login.vue:159", "所有用户数据：", results);
+                  common_vendor.index.__f__("log", "at pages/my/login.vue:138", "所有用户数据：", results);
                   getApp().globalData.userList = results;
                   common_vendor.index.switchTab({
                     url: `/pages/my/index`
                   });
                 }).catch((err) => {
                   getApp().globalData.userList = [];
-                  common_vendor.index.__f__("error", "at pages/my/login.vue:167", "有请求失败了", err);
+                  common_vendor.index.__f__("error", "at pages/my/login.vue:146", "有请求失败了", err);
                 });
               } else {
                 common_vendor.index.switchTab({
@@ -129,7 +129,7 @@ const _sfc_main = {
           }
         });
       } else {
-        common_vendor.index.__f__("log", "at pages/my/login.vue:184", this.phone_number, this.name, this.icon_file);
+        common_vendor.index.__f__("log", "at pages/my/login.vue:163", this.phone_number, this.name, this.icon_file);
         if (!this.phone_number || !this.name || !this.icon_file.length) {
           common_vendor.index.showToast({
             title: "请完整填写用户信息和上传头像",
@@ -156,13 +156,38 @@ const _sfc_main = {
               });
             } else {
               let newData = JSON.parse(res.data);
-              common_vendor.index.__f__("log", "at pages/my/login.vue:208", newData, "----我的数据");
-              common_vendor.index.setStorageSync("token", this.phone_number);
-              common_vendor.index.setStorageSync("userInfo", JSON.stringify(newData));
-              common_vendor.index.setStorageSync("userName", this.name);
-              common_vendor.index.setStorageSync("phone_number", this.phone_number);
-              common_vendor.index.switchTab({
-                url: `/pages/my/index`
+              common_vendor.index.request({
+                url: `${this.$baseURL}/api/v1/user?id=${newData.id}`,
+                method: "GET",
+                success: (rea) => {
+                  var _a3, _b2, _c, _d;
+                  if (((_a3 = rea.data) == null ? void 0 : _a3.message) && ((_b2 = rea.data) == null ? void 0 : _b2.message) == "用户不存在") {
+                    common_vendor.index.showToast({
+                      title: "用户不存在，请完成注册",
+                      icon: "none"
+                    });
+                    this.is_active = true;
+                  } else if (((_c = rea.data) == null ? void 0 : _c.message) && ((_d = rea.data) == null ? void 0 : _d.message) != "用户不存在") {
+                    common_vendor.index.showToast({
+                      title: "请输入正确手机格式",
+                      icon: "none"
+                    });
+                  } else {
+                    common_vendor.index.setStorageSync("token", this.phone_number);
+                    common_vendor.index.setStorageSync("userInfo", JSON.stringify(rea.data));
+                    common_vendor.index.setStorageSync("userName", this.name);
+                    common_vendor.index.setStorageSync("phone_number", this.phone_number);
+                    common_vendor.index.switchTab({
+                      url: `/pages/my/index`
+                    });
+                  }
+                },
+                fail: (err) => {
+                  common_vendor.index.showToast({
+                    title: JSON.stringify(err),
+                    icon: "none"
+                  });
+                }
               });
             }
           },

@@ -53,6 +53,7 @@ const _sfc_main = {
       } else {
         this.$emit("change");
       }
+      this.$emit("tabPage", url);
     }
   }
 };
