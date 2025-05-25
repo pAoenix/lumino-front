@@ -45,7 +45,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["custom-class"]: "u-overlay",
       duration: _ctx.duration,
       ["custom-style"]: $options.overlayStyle
-    })
+    }),
+    d: common_vendor.gei(_ctx, "")
   };
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-9112bed9"]]);

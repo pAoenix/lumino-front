@@ -40,18 +40,28 @@ const _sfc_main = {
         },
         success: (res) => {
           var _a2;
-          if ((_a2 = res.data) == null ? void 0 : _a2.message) {
+          common_vendor.index.__f__("log", "at pages/my/add-icon.vue:71", res, "-------res");
+          if (res.statusCode == 413) {
             common_vendor.index.showToast({
-              title: res.data.message,
+              title: "上传图片过大",
               icon: "none"
             });
           } else {
-            common_vendor.index.navigateTo({
-              url: "/pages/my/icons"
-            });
+            if ((_a2 = res.data) == null ? void 0 : _a2.message) {
+              common_vendor.index.showToast({
+                title: res.data.message,
+                icon: "none"
+              });
+            } else {
+              common_vendor.index.navigateBack({
+                delta: 1
+                // 返回上一级
+              });
+            }
           }
         },
         fail: (err) => {
+          common_vendor.index.__f__("log", "at pages/my/add-icon.vue:94", err, "------err");
           common_vendor.index.showToast({
             title: "注册失败",
             icon: "none"
@@ -99,7 +109,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     g: common_vendor.p({
       title: "图标"
     }),
-    h: common_vendor.o(($event) => $options.submit())
+    h: common_vendor.o(($event) => $options.submit()),
+    i: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

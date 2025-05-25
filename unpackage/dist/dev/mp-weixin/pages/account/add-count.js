@@ -27,7 +27,6 @@ const _sfc_main = {
   watch: {
     inputValue: {
       handler(newVal) {
-        common_vendor.index.__f__("log", "at pages/account/add-count.vue:57", newVal);
         if (newVal.indexOf("+") !== -1 || newVal.indexOf("-") !== -1 || newVal.indexOf("*") !== -1 || newVal.indexOf("/") !== -1) {
           this.conutNumber = `${this.calculateExpression(newVal).toFixed(2)}`;
         } else {
@@ -40,7 +39,6 @@ const _sfc_main = {
   },
   onShow: function() {
     const accountBook = getApp().globalData.accountBookData;
-    common_vendor.index.__f__("log", "at pages/account/add-count.vue:75", accountBook);
     this.accountBook = accountBook;
     getApp().globalData.accountBookData = null;
   },
@@ -163,7 +161,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       mode: "number",
       show: $data.show,
       showCancel: false
-    })
+    }),
+    o: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

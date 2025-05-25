@@ -54,7 +54,6 @@
 		watch: {
 			inputValue: {
 				handler(newVal) {
-					console.log(newVal);
 					if (
 						newVal.indexOf("+") !== -1 ||
 						newVal.indexOf("-") !== -1 ||
@@ -72,7 +71,6 @@
 		},
 		onShow: function() {
 			const accountBook = getApp().globalData.accountBookData;
-			console.log(accountBook);
 			this.accountBook = accountBook;
 			// 清除数据，避免下次读取错误
 			getApp().globalData.accountBookData = null;

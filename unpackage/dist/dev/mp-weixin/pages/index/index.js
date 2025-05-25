@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 require("../../utils/request.js");
+const utils_settingTime = require("../../utils/setting-time.js");
 const SvgIcon = () => "../component/svg-icon.js";
 const CustomTabbar = () => "../component/custom-tabbar.js";
 const _sfc_main = {
@@ -34,7 +35,8 @@ const _sfc_main = {
           }
         }
       ],
-      account_warpper: []
+      account_warpper: [],
+      openedIndex: null
     };
   },
   onLoad() {
@@ -85,18 +87,26 @@ const _sfc_main = {
           );
         }
         this.getTransactionData();
+        getApp().globalData.activeAccountBookList = null;
       }).catch((err) => {
       });
     });
   },
   methods: {
+    setTime(time) {
+      if (time) {
+        return utils_settingTime.formatDateToCustomString(utils_settingTime.formatTimes1(time));
+      } else {
+        return "-";
+      }
+    },
     getTransactionData() {
       let userInfo = common_vendor.index.getStorageSync("userInfo") ? JSON.parse(common_vendor.index.getStorageSync("userInfo")) : null;
       common_vendor.index.request({
         url: `${this.$baseURL}/api/v1/transaction?account_book_id=${this.accountBookId}&user_id=${userInfo.id}`,
         method: "GET",
         success: (res) => {
-          var _a, _b, _c, _d, _e, _f;
+          var _a, _b, _c, _d, _e, _f, _g, _h;
           let newData = [];
           if ((_b = (_a = res.data) == null ? void 0 : _a.transactions) == null ? void 0 : _b.length) {
             (_c = res.data) == null ? void 0 : _c.transactions.forEach((item) => {
@@ -123,19 +133,35 @@ const _sfc_main = {
               (sum, item) => sum + item.Income,
               0
             );
-            newData.push({
-              amount: Number(Number(Spendings).toFixed(2)),
-              amounts: userInfo.balance,
-              type: "账单支出（¥）",
-              name: `总支出 ¥:${Number(Number(Spendings).toFixed(2))} 元`
-            }, {
-              amount: Number(Number(Incomes).toFixed(2)),
-              amounts: userInfo.balance,
-              type: "账单收入（¥）",
-              name: `总收入 ¥:${Number(Number(Incomes).toFixed(2))} 元`
-            });
+            newData.push(
+              {
+                amount: Number(Number(Spendings).toFixed(2)),
+                amounts: userInfo.balance,
+                type: "账单支出（¥）",
+                name: `总支出 ¥:${Number(Number(Spendings).toFixed(2))} 元`
+              },
+              {
+                amount: Number(Number(Incomes).toFixed(2)),
+                amounts: userInfo.balance,
+                type: "账单收入（¥）",
+                name: `总收入 ¥:${Number(Number(Incomes).toFixed(2))} 元`
+              }
+            );
             this.account_warpper = newData;
-            this.accountList = (_f = res.data) == null ? void 0 : _f.transactions;
+            if ((_g = (_f = res.data) == null ? void 0 : _f.transactions) == null ? void 0 : _g.length) {
+              res.data.transactions.forEach((item) => {
+                var _a2;
+                if ((_a2 = item.Items) == null ? void 0 : _a2.length) {
+                  item.Items.sort((a, b) => {
+                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                  });
+                }
+              });
+              res.data.transactions.sort((a, b) => {
+                return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+              });
+            }
+            this.accountList = (_h = res.data) == null ? void 0 : _h.transactions;
           } else {
             this.account_warpper = [];
             this.accountList = [];
@@ -147,7 +173,6 @@ const _sfc_main = {
       });
     },
     tabPage(url) {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:228", url, "-----url");
       if (url !== "/pages/index/index") {
         this.accountBookId = "";
         this.accountBookName = "";
@@ -165,7 +190,7 @@ const _sfc_main = {
         accountBookUserUrls: this.accountBookUserUrls
       };
       common_vendor.index.navigateTo({
-        url: "/pages/account/add-count"
+        url: "/pages/index/add-transaction"
       });
     },
     accountChange(item) {
@@ -222,7 +247,6 @@ const _sfc_main = {
             }
           },
           fail: (err) => {
-            common_vendor.index.__f__("log", "at pages/index/index.vue:308", err);
             common_vendor.index.showToast({
               title: "删除失败",
               icon: "none"
@@ -238,7 +262,7 @@ const _sfc_main = {
           accountBookUser: this.accountBookUser,
           accountBookUserUrls: this.accountBookUserUrls
         };
-        getApp().globalData.billCount = {
+        getApp().globalData.accountBookData = {
           ...item,
           amount: item.amount,
           type: item.type,
@@ -249,7 +273,7 @@ const _sfc_main = {
           accountBookUserUrls: this.accountBookUserUrls
         };
         common_vendor.index.navigateTo({
-          url: `/pages/account/add-bill`
+          url: "/pages/index/add-transaction"
         });
       }
     }
@@ -305,25 +329,33 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: common_vendor.t(account.Date),
         b: common_vendor.t(account.Spending),
         c: common_vendor.t(account.Income),
-        d: common_vendor.f(account.Items, (item, index, i1) => {
-          return {
+        d: ind === 0 ? 1 : "",
+        e: common_vendor.f(account.Items, (item, index, i1) => {
+          return common_vendor.e({
             a: "2a0f1042-5-" + i0 + "-" + i1 + "," + ("2a0f1042-4-" + i0 + "-" + i1),
             b: common_vendor.p({
               src: item.icon_url ? item.icon_url : $data.pic,
-              size: "40"
+              size: "30"
             }),
-            c: common_vendor.t(["", "收入", "支出", "转账", "预交款"][item.type]),
-            d: common_vendor.t(item.iconName),
-            e: common_vendor.t(item.userName),
-            f: common_vendor.t(["", "收入", "支出", "转账", "预交款"][item.type]),
-            g: common_vendor.t(Number(item.amount).toFixed(2)),
-            h: common_vendor.o((props) => $options.conutClick(props, item, index), index),
-            i: index,
-            j: "2a0f1042-4-" + i0 + "-" + i1 + "," + ("2a0f1042-3-" + i0)
-          };
+            c: common_vendor.t(item.iconName),
+            d: common_vendor.t(item.userName),
+            e: common_vendor.t(["", "收入", "支出", "转账", "预交款"][item.type]),
+            f: common_vendor.t(item.related_user_ids.length),
+            g: item.type == 1
+          }, item.type == 1 ? {} : {}, {
+            h: item.type == 2
+          }, item.type == 2 ? {} : {}, {
+            i: common_vendor.t(Number(Number(item.amount).toFixed(2))),
+            j: item.type == 1 ? 1 : "",
+            k: common_vendor.t($options.setTime(item.date)),
+            l: common_vendor.o((props) => $options.conutClick(props, item, index), index),
+            m: index === account.Items.length - 1 ? 1 : "",
+            n: index,
+            o: "2a0f1042-4-" + i0 + "-" + i1 + "," + ("2a0f1042-3-" + i0)
+          });
         }),
-        e: "2a0f1042-3-" + i0,
-        f: ind
+        f: "2a0f1042-3-" + i0,
+        g: ind
       };
     }),
     h: common_vendor.p({
@@ -333,7 +365,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     j: common_vendor.o($options.tabPage),
     k: common_vendor.p({
       selected: 2
-    })
+    }),
+    l: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

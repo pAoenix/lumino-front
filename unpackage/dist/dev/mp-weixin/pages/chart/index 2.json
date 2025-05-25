@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "图表",
-  "usingComponents": {
-    "svg-icon": "../component/svg-icon",
-    "custom-tabbar": "../component/custom-tabbar"
-  }
-}

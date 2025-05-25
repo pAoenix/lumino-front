@@ -49,7 +49,7 @@
 			},
 			// 星期文本
 			weekText: {
-				type: Boolean,
+				type: [Boolean, Array],
 				default: () => {
 					return ['一', '二', '三', '四', '五', '六', '日']
 				}

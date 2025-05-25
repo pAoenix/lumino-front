@@ -49,9 +49,13 @@ export default {
       });
     },
     close() {
-      if (this.isIcon) {
+      if (this.isIcon == 1) {
         uni.navigateTo({
           url: `/pages/account/add-bill`,
+        });
+      } else if (this.isIcon == 2) {
+        uni.navigateTo({
+          url: `/pages/index/add-transaction`,
         });
       } else {
         uni.switchTab({

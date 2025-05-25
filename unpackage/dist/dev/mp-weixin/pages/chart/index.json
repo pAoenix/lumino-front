@@ -1,7 +1,12 @@
 {
   "navigationBarTitleText": "图表",
   "usingComponents": {
-    "svg-icon": "../component/svg-icon",
-    "custom-tabbar": "../component/custom-tabbar"
+    "custom-tabbar": "../component/custom-tabbar",
+    "qiun-data-charts": "../../uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts",
+    "up-dropdown-item": "../../uni_modules/uview-plus/components/u-dropdown-item/u-dropdown-item",
+    "up-dropdown": "../../uni_modules/uview-plus/components/u-dropdown/u-dropdown",
+    "up-avatar-group": "../../uni_modules/uview-plus/components/u-avatar-group/u-avatar-group",
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar",
+    "up-line-progress": "../../uni_modules/uview-plus/components/u-line-progress/u-line-progress"
   }
 }

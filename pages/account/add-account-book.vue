@@ -92,7 +92,6 @@ export default {
     const users = getApp().globalData.userList;
     this.userList = users;
     const data = getApp().globalData.updateAccountBook;
-    console.log(data);
     this.updateData = data;
     if (this.updateData) {
       this.accountBookName = this.updateData.name;
@@ -228,7 +227,6 @@ export default {
           "Content-Type": "application/json",
         },
         success: (res) => {
-          console.log(res.data);
           if (res.data?.message) {
             uni.showToast({
               title: res.data.message,

@@ -113,7 +113,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       placement: "column",
       modelValue: $data.accountUser
     }),
-    h: common_vendor.o(($event) => $options.submit())
+    h: common_vendor.o(($event) => $options.submit()),
+    i: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-46ee22e8"]]);

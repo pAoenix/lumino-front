@@ -1,1 +1,1 @@
-<view id="{{virtualHostId !== '' ? virtualHostId : b}}" style="{{c + ';' + virtualHostStyle}}" class="{{['u-sticky', 'data-v-8b303089', virtualHostClass]}}" hidden="{{virtualHostHidden}}"><view style="{{a}}" class="u-sticky__content data-v-8b303089"><slot/></view></view>
+<view id="{{b}}" style="{{c + ';' + virtualHostStyle}}" class="{{['u-sticky', 'data-v-8b303089', virtualHostClass]}}" hidden="{{virtualHostHidden || false}}"><view style="{{a}}" class="u-sticky__content data-v-8b303089"><slot/></view></view>

@@ -88,7 +88,7 @@
 
 <script>
 import SvgIcon from "../component/svg-icon.vue"; // 引入svg
-import { formatDate } from "@/utils/setting-time";
+import { formatDateT } from "@/utils/setting-time";
 export default {
   data() {
     return {
@@ -118,7 +118,6 @@ export default {
     this.iconData = IconData;
     // 页面传递数据
     const data = getApp().globalData.billCount;
-    console.log(data, "----billCount");
     if (data?.iconId) {
       this.iconActive = data.iconId;
     }
@@ -136,7 +135,6 @@ export default {
     const accounts = getApp().globalData.accountBookList;
     // 账户信息
     const accountType = getApp().globalData.accountType;
-    console.log(accountType);
     this.accountTypeOptions = [accountType];
     if (!data.accountId) {
       this.selectAccountId = accountType[0].id;
@@ -156,11 +154,9 @@ export default {
       this.selectAccountName = updata.accountName;
       this.billData = updata;
     }
-    console.log(updata, "----updateAcconutData");
     this.billUpdateData = updata;
     // 选择的参与人
     const selectUserList = getApp().globalData.selectUserList;
-    console.log(selectUserList);
     if (selectUserList) {
       this.accountUser = selectUserList.accountUser;
       this.accountUserUrls = selectUserList.accountUserUrls;
@@ -227,14 +223,13 @@ export default {
         amount: Number(this.billData.amount),
         account_book_id: Number(this.billData.accountBookId),
         category_id: this.iconActive,
-        date: formatDate(new Date()),
+        date: formatDateT(new Date()),
         creator_id: userInfo.id,
         pay_user_id: userInfo.id,
         related_user_ids: this.accountUser,
         type: this.billData.type,
         description: this.description,
       };
-      console.log(data);
       uni.request({
         url: `${this.$baseURL}/api/v1/transaction`,
         method: this.billUpdateData ? "PUT" : "POST",

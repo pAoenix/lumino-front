@@ -261,7 +261,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     n: common_vendor.o(($event) => $data.is_active = false)
   } : {}, {
     o: common_vendor.t($data.is_type ? "修改" : $data.is_active ? "注册" : "登录"),
-    p: common_vendor.o(($event) => $options.submit())
+    p: common_vendor.o(($event) => $options.submit()),
+    q: common_vendor.gei(_ctx, "")
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

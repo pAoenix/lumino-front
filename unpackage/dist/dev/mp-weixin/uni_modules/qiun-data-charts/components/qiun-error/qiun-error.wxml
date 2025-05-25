@@ -1,0 +1,1 @@
+<view class="{{['chartsview', virtualHostClass]}}" style="{{virtualHostStyle}}" hidden="{{virtualHostHidden || false}}" id="{{b}}"><view class="charts-error"></view><view class="charts-font">{{a}}</view></view>

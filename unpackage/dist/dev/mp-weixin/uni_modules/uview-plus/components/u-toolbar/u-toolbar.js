@@ -37,7 +37,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     i: common_vendor.o((...args) => $options.confirm && $options.confirm(...args)),
     j: _ctx.confirmColor
   } : {}, {
-    k: common_vendor.o((...args) => _ctx.noop && _ctx.noop(...args))
+    k: common_vendor.o((...args) => _ctx.noop && _ctx.noop(...args)),
+    l: common_vendor.gei(_ctx, "")
   }) : {});
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-eadae74e"]]);

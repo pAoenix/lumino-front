@@ -33,19 +33,19 @@ const _sfc_main = {
     }
     getApp().iconInfoData();
     getApp().userInfoData().then((rea) => {
-      common_vendor.index.__f__("log", "at pages/details/index.vue:104", rea);
+      common_vendor.index.__f__("log", "at pages/details/index.vue:140", rea);
       getApp().accountBookData(0).then((res) => {
         const accounts = getApp().globalData.accountBookList;
         const users = getApp().globalData.userList;
         this.userList = users;
         this.accountList = accounts;
       }).catch((err) => {
-        common_vendor.index.__f__("log", "at pages/details/index.vue:114", err);
+        common_vendor.index.__f__("log", "at pages/details/index.vue:150", err);
         this.userList = [];
         this.accountList = [];
       });
     }).catch((err) => {
-      common_vendor.index.__f__("log", "at pages/details/index.vue:119", err);
+      common_vendor.index.__f__("log", "at pages/details/index.vue:156", err);
     });
   },
   onLoad() {
@@ -55,7 +55,7 @@ const _sfc_main = {
   methods: {
     setTime(time) {
       if (time) {
-        return utils_settingTime.formatDate(time);
+        return utils_settingTime.formatTimes(time);
       } else {
         return "";
       }
@@ -91,6 +91,12 @@ const _sfc_main = {
       getApp().globalData.activeAccountBookList = item;
       common_vendor.index.switchTab({
         url: `/pages/index/index`
+      });
+    },
+    toAccountPageChart(item) {
+      getApp().globalData.activeAccountBookList = item;
+      common_vendor.index.switchTab({
+        url: `/pages/chart/index`
       });
     },
     updateAccountBook(item) {
@@ -167,10 +173,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         h: "0bb53e62-6-" + i0,
         i: common_vendor.o(($event) => $options.updateAccountBook(item), index),
         j: "0bb53e62-7-" + i0,
-        k: "0bb53e62-8-" + i0,
-        l: common_vendor.t(item.income),
-        m: common_vendor.t(item.spending),
-        n: index
+        k: common_vendor.o(($event) => $options.toAccountPageChart(item), index),
+        l: "0bb53e62-8-" + i0,
+        m: common_vendor.t(item.income),
+        n: common_vendor.t(item.spending),
+        o: index
       };
     }),
     g: common_vendor.p({
@@ -192,7 +199,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     l: common_vendor.p({
       selected: 0
-    })
+    }),
+    m: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

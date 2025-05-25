@@ -15,7 +15,6 @@ const _sfc_main = {
     const users = getApp().globalData.userList;
     this.userList = users;
     const data = getApp().globalData.updateAccountBook;
-    common_vendor.index.__f__("log", "at pages/account/add-account-book.vue:95", data);
     this.updateData = data;
     if (this.updateData) {
       this.accountBookName = this.updateData.name;
@@ -124,7 +123,7 @@ const _sfc_main = {
           });
         },
         fail: (err) => {
-          common_vendor.index.__f__("error", "at pages/account/add-account-book.vue:209", err);
+          common_vendor.index.__f__("error", "at pages/account/add-account-book.vue:208", err);
         }
       });
     },
@@ -144,7 +143,6 @@ const _sfc_main = {
         },
         success: (res) => {
           var _a;
-          common_vendor.index.__f__("log", "at pages/account/add-account-book.vue:231", res.data);
           if ((_a = res.data) == null ? void 0 : _a.message) {
             common_vendor.index.showToast({
               title: res.data.message,
@@ -167,7 +165,7 @@ const _sfc_main = {
           }
         },
         fail: (err) => {
-          common_vendor.index.__f__("error", "at pages/account/add-account-book.vue:257", err);
+          common_vendor.index.__f__("error", "at pages/account/add-account-book.vue:255", err);
         }
       });
     }
@@ -255,7 +253,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   }, $data.updateData ? {
     p: common_vendor.o(($event) => $options.deleteAccount())
   } : {}, {
-    q: common_vendor.o(($event) => $options.submit())
+    q: common_vendor.o(($event) => $options.submit()),
+    r: common_vendor.gei(_ctx, "")
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5a0be122"]]);

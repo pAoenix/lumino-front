@@ -28,7 +28,6 @@ const _sfc_main = {
     const IconData = getApp().globalData.iconData;
     this.iconData = IconData;
     const data = getApp().globalData.billCount;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:121", data, "----billCount");
     if (data == null ? void 0 : data.iconId) {
       this.iconActive = data.iconId;
     }
@@ -44,7 +43,6 @@ const _sfc_main = {
     this.billData = data;
     getApp().globalData.accountBookList;
     const accountType = getApp().globalData.accountType;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:139", accountType);
     this.accountTypeOptions = [accountType];
     if (!data.accountId) {
       this.selectAccountId = accountType[0].id;
@@ -62,10 +60,8 @@ const _sfc_main = {
       this.selectAccountName = updata.accountName;
       this.billData = updata;
     }
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:159", updata, "----updateAcconutData");
     this.billUpdateData = updata;
     const selectUserList = getApp().globalData.selectUserList;
-    common_vendor.index.__f__("log", "at pages/account/add-bill.vue:163", selectUserList);
     if (selectUserList) {
       this.accountUser = selectUserList.accountUser;
       this.accountUserUrls = selectUserList.accountUserUrls;
@@ -134,14 +130,13 @@ const _sfc_main = {
         amount: Number(this.billData.amount),
         account_book_id: Number(this.billData.accountBookId),
         category_id: this.iconActive,
-        date: utils_settingTime.formatDate(/* @__PURE__ */ new Date()),
+        date: utils_settingTime.formatDateT(/* @__PURE__ */ new Date()),
         creator_id: userInfo.id,
         pay_user_id: userInfo.id,
         related_user_ids: this.accountUser,
         type: this.billData.type,
         description: this.description
       };
-      common_vendor.index.__f__("log", "at pages/account/add-bill.vue:237", data);
       common_vendor.index.request({
         url: `${this.$baseURL}/api/v1/transaction`,
         method: this.billUpdateData ? "PUT" : "POST",
@@ -165,7 +160,7 @@ const _sfc_main = {
           }
         },
         fail: (err) => {
-          common_vendor.index.__f__("log", "at pages/account/add-bill.vue:265", err);
+          common_vendor.index.__f__("log", "at pages/account/add-bill.vue:260", err);
           common_vendor.index.showToast({
             title: this.billUpdateData ? "修改交易失败" : "创建交易失败",
             icon: "none"
@@ -241,7 +236,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "28"
     }),
     q: common_vendor.o(($event) => $options.addIcons()),
-    r: common_vendor.o(($event) => $options.submit())
+    r: common_vendor.o(($event) => $options.submit()),
+    s: common_vendor.gei(_ctx, "")
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e990ce43"]]);

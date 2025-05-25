@@ -279,7 +279,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       show: _ctx.show || _ctx.hasInput && $data.showByClickInput,
       mode: _ctx.popupMode,
       zIndex: _ctx.zIndex
-    })
+    }),
+    s: common_vendor.gei(_ctx, "")
   });
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-91b05052"]]);

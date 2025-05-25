@@ -23,9 +23,13 @@ const _sfc_main = {
       });
     },
     close() {
-      if (this.isIcon) {
+      if (this.isIcon == 1) {
         common_vendor.index.navigateTo({
           url: `/pages/account/add-bill`
+        });
+      } else if (this.isIcon == 2) {
+        common_vendor.index.navigateTo({
+          url: `/pages/index/add-transaction`
         });
       } else {
         common_vendor.index.switchTab({
@@ -59,7 +63,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     b: common_vendor.o(($event) => $options.close()),
-    c: common_vendor.o(($event) => $options.submit())
+    c: common_vendor.o(($event) => $options.submit()),
+    d: common_vendor.gei(_ctx, "")
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

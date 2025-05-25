@@ -4,8 +4,8 @@ export const formatTime = (time) => {
 	var year = date.getFullYear();
 	var month =
 		date.getMonth() + 1 < 10 ?
-		"0" + (date.getMonth() + 1) :
-		date.getMonth() + 1;
+			"0" + (date.getMonth() + 1) :
+			date.getMonth() + 1;
 	var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
 	// 拼接
 	return `${year}-${month}-${day}`;
@@ -16,8 +16,8 @@ export const formatTimes = (time, type) => {
 	var year = date.getFullYear();
 	var month =
 		date.getMonth() + 1 < 10 ?
-		"0" + (date.getMonth() + 1) :
-		date.getMonth() + 1;
+			"0" + (date.getMonth() + 1) :
+			date.getMonth() + 1;
 	var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
 	var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
 	var minutes =
@@ -35,9 +35,33 @@ export const formatTimes = (time, type) => {
 		return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 	}
 };
+export const formatTimes1 = (time, type) => {
+	const date = new Date(time.replace('T', ' ').replace('Z', ''));
+	var year = date.getFullYear();
+	var month =
+		date.getMonth() + 1 < 10 ?
+			"0" + (date.getMonth() + 1) :
+			date.getMonth() + 1;
+	var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+	var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+	var minutes =
+		date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+	var seconds =
+		date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+	// 拼接
+	if (type) {
+		if (type == "start") {
+			return `${year}-${month}-${day} 00:00:00`;
+		} else if (type == "end") {
+			return `${year}-${month}-${day} 23:59:59`;
+		}
+	} else {
+		return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+	}
+};
 
 // 转换格式示例：2024-08-02T15:04:05Z
-export const formatDate = (date) => {
+export const formatDateT = (date) => {
 	let time = new Date(date);
 	// 获取年份、月份、日期、小时、分钟和秒数
 	const year = time.getUTCFullYear();
@@ -51,7 +75,7 @@ export const formatDate = (date) => {
 	return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
 };
 // 转换格式示例：2006-01-02T15:04:05+08:00
-export const formatDate1 = (date) => {
+export const formatDateUTC = (date) => {
 	let time = new Date(date);
 	// 获取年份、月份、日期、小时、分钟和秒数
 	const year = time.getFullYear();
@@ -72,3 +96,14 @@ export const formatDate1 = (date) => {
 	// 拼接成 ISO 8601 格式，包含时区偏移
 	return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offsetSign}${offsetHours}:${offsetMinutes}`;
 };
+
+// 项目数据处理
+export function formatDateToCustomString(dateStr) {
+	const date = new Date(dateStr.replace('T', ' ').replace('Z', ''));
+	const pad = (n) => n.toString().padStart(2, '0');
+	const M = pad(date.getMonth() + 1); // 月份从 0 开始
+	const D = pad(date.getDate());
+	const h = pad(date.getHours());
+	const m = pad(date.getMinutes());
+	return `${M}月${D}日 ${h}:${m}`;
+}

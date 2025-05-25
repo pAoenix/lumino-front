@@ -70,7 +70,6 @@
 }
 .container .account_warpper .swiper_warpper {
   height: 120px;
-  margin-bottom: 10px;
 }
 .container .account_warpper .swiper_warpper .swiper_warpper_item {
   padding: 0 20px 20px;
@@ -111,26 +110,43 @@
 }
 .container .account_warpper .account_title {
   width: 100%;
-  font-size: 13px;
-  padding: 3px 10px;
-  background: #f0f0f0;
+  font-size: 11px;
+  padding: 10px 10px 0px;
+  border-top: 1px solid #f0f0f0;
   box-sizing: border-box;
-  color: #333;
+  color: #aaa;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 .container .account_warpper .account_title .title_total {
   display: flex;
   gap: 10px;
+  font-size: 11px;
+}
+.container .account_warpper .account_title .title_total .title_span {
+  font-size: 12px;
+}
+.container .account_warpper .account_title .title_total .title_text {
+  font-weight: 400;
+  font-size: 11px;
+  color: #888;
+}
+.container .account_warpper .account_title_noborder {
+  margin-top: 0;
+  border-top: none;
 }
 .container .account_warpper .account_table {
-  padding: 10px;
+  padding: 0 0 0 10px;
   display: flex;
   flex-direction: column;
 }
 .container .account_warpper .account_table .u-swipe-action-item {
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f5f5f5a1;
+}
+.container .account_warpper .account_table .noBorder {
+  border-bottom: none;
 }
 .container .account_warpper .account_table .u-swipe-action-item__right {
   top: 1px;
@@ -139,11 +155,12 @@
 }
 .container .account_warpper .account_table .account_for {
   width: 100%;
-  padding: 20px 10px;
+  padding: 10px 10px 10px 0;
   box-sizing: border-box;
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
+  position: relative;
 }
 .container .account_warpper .account_table .account_for .svg-icon {
   box-sizing: border-box;
@@ -152,13 +169,30 @@
   background: #eeeeee;
 }
 .container .account_warpper .account_table .account_for .for_img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
-.container .account_warpper .account_table .account_for .for_warpper text {
-  display: block;
-  font-size: 12px;
-  color: #999;
+.container .account_warpper .account_table .account_for .for_warpper .userName {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #aaa;
+}
+.container .account_warpper .account_table .account_for .for_warpper .userName .name {
+  font-weight: bold;
+  color: #666;
+  margin-right: 3px;
+}
+.container .account_warpper .account_table .account_for .for_warpper .userName .name_type {
+  color: #666;
+  margin-right: 3px;
+}
+.container .account_warpper .account_table .account_for .for_warpper .userName .users {
+  color: #666;
+}
+.container .account_warpper .account_table .account_for .for_warpper .userName .users .users_number {
+  font-weight: bold;
 }
 .container .account_warpper .account_table .account_for .for_warpper .type {
   display: flex;
@@ -168,13 +202,24 @@
 }
 .container .account_warpper .account_table .account_for .for_warpper .type text {
   display: block;
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
 }
 .container .account_warpper .account_table .account_for .amount {
-  font-size: 20px;
-  color: #1e9813;
+  font-size: 15px;
+  color: #333;
   margin-left: auto;
+  margin-bottom: 15px;
+}
+.container .account_warpper .account_table .account_for .income {
+  color: #feb414;
+}
+.container .account_warpper .account_table .account_for .date {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  color: #666;
 }
 .bottom_icon {
   position: fixed;

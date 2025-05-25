@@ -133,7 +133,7 @@ const _sfc_main = {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.s($options.stickyContent),
-    b: $data.elId,
+    b: common_vendor.gei(_ctx, $data.elId),
     c: common_vendor.s($options.style)
   };
 }

@@ -1,4 +1,4 @@
-import "./chunk-P2LSHJDD.js";
+import "./chunk-CSAU5B4Q.js";
 
 // ../../../../../../Users/a1234/Desktop/work/test-jz/node_modules/dayjs/esm/constant.js
 var SECONDS_A_MINUTE = 60;

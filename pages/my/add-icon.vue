@@ -68,18 +68,30 @@ export default {
           name: this.name,
         },
         success: (res) => {
-          if (res.data?.message) {
+          console.log(res, "-------res");
+          if (res.statusCode == 413) {
             uni.showToast({
-              title: res.data.message,
+              title: "上传图片过大",
               icon: "none",
             });
           } else {
-            uni.navigateTo({
-              url: "/pages/my/icons",
-            });
+            if (res.data?.message) {
+              uni.showToast({
+                title: res.data.message,
+                icon: "none",
+              });
+            } else {
+              // uni.redirectTo({
+              //   url: "/pages/my/icons",
+              // });
+              uni.navigateBack({
+                delta: 1, // 返回上一级
+              });
+            }
           }
         },
         fail: (err) => {
+          console.log(err, "------err");
           uni.showToast({
             title: "注册失败",
             icon: "none",

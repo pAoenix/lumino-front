@@ -152,7 +152,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       });
     }),
     b: $data.status,
-    c: $data.size
+    c: $data.size,
+    d: common_vendor.gei(_ctx, "")
   };
 }
 if (typeof block0 === "function")

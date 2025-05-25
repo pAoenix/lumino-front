@@ -1,31 +1,25 @@
 {
-  "hash": "b99e5238",
-  "configHash": "00c78e4a",
+  "hash": "b4e466a8",
+  "configHash": "a8d3eefe",
   "lockfileHash": "c2e0fa3a",
-  "browserHash": "d812a032",
+  "browserHash": "df2716b7",
   "optimized": {
     "dayjs/esm/index": {
       "src": "../../../../../node_modules/dayjs/esm/index.js",
       "file": "dayjs_esm_index.js",
-      "fileHash": "9204722f",
+      "fileHash": "fc9d2bca",
       "needsInterop": false
-    },
-    "dayjs": {
-      "src": "../../../../../node_modules/dayjs/dayjs.min.js",
-      "file": "dayjs.js",
-      "fileHash": "57a02ca4",
-      "needsInterop": true
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "60573330",
+      "fileHash": "a7ad0e3a",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-P2LSHJDD": {
-      "file": "chunk-P2LSHJDD.js"
+    "chunk-CSAU5B4Q": {
+      "file": "chunk-CSAU5B4Q.js"
     }
   }
 }

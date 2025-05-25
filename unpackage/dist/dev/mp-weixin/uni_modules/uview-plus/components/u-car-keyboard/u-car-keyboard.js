@@ -184,7 +184,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         m: common_vendor.n(i + 1 === 4 && "u-keyboard__button--center")
       });
     }),
-    b: common_vendor.o((...args) => _ctx.noop && _ctx.noop(...args))
+    b: common_vendor.o((...args) => _ctx.noop && _ctx.noop(...args)),
+    c: common_vendor.gei(_ctx, "")
   };
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e3990159"]]);

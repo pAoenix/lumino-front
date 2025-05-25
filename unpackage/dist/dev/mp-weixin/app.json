@@ -13,7 +13,8 @@
     "pages/account/participants",
     "pages/find/reply",
     "pages/my/icons",
-    "pages/my/add-icon"
+    "pages/my/add-icon",
+    "pages/index/add-transaction"
   ],
   "window": {
     "pageOrientation": "portrait",

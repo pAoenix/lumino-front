@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "账单金额",
-  "usingComponents": {
-    "up-subsection": "../../uni_modules/uview-plus/components/u-subsection/u-subsection",
-    "up-keyboard": "../../uni_modules/uview-plus/components/u-keyboard/u-keyboard"
-  }
-}

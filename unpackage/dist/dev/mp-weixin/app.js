@@ -18,6 +18,7 @@ if (!Math) {
   "./pages/find/reply.js";
   "./pages/my/icons.js";
   "./pages/my/add-icon.js";
+  "./pages/index/add-transaction.js";
 }
 const _sfc_main = {
   globalData: {
@@ -522,13 +523,13 @@ const _sfc_main = {
     iconData: []
   },
   onLaunch: function() {
-    common_vendor.index.__f__("log", "at App.vue:504", "App Launch");
+    common_vendor.index.__f__("log", "at App.vue:506", "App Launch");
     this.accountBookData();
   },
   onShow: function() {
   },
   onHide: function() {
-    common_vendor.index.__f__("log", "at App.vue:509", "App Hide");
+    common_vendor.index.__f__("log", "at App.vue:511", "App Hide");
   },
   methods: {
     accountBookData: function(type) {
@@ -617,7 +618,6 @@ const _sfc_main = {
     },
     iconInfoData: function() {
       return new Promise((resolve, reject) => {
-        common_vendor.index.__f__("log", "at App.vue:604", "进来了啊");
         if (common_vendor.index.getStorageSync("token") && common_vendor.index.getStorageSync("userInfo")) {
           let userInfo = JSON.parse(common_vendor.index.getStorageSync("userInfo"));
           common_vendor.index.request({
